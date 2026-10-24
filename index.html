@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRbit | 3D Rocket Journey to Your First Pull Request</title>
+  <meta name="description" content="PRbit is an interactive 3D space journey guiding developer astronauts toward their first open-source GitHub contribution across an immersive galaxy." />
+  
+  <!-- Google Fonts: Space Grotesk, Quicksand, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Quicksand:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Quicksand', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            galaxy: {
+              space: '#080914',
+              midnight: '#10152B',
+              midnightLight: '#182040',
+              nebula: '#6D45C5',
+              electric: '#A78BFA',
+              cyan: '#57D9F4',
+              starlight: '#F4F1FF',
+              lavender: '#B8B5D3',
+              border: 'rgba(167, 139, 250, 0.22)',
+            }
+          },
+          boxShadow: {
+            'galaxy-sm': '0 2px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(109, 69, 197, 0.15)',
+            'galaxy': '0 12px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(87, 217, 244, 0.2)',
+            'galaxy-lg': '0 24px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(109, 69, 197, 0.3)',
+            'cyan-glow': '0 0 24px -2px rgba(87, 217, 244, 0.6)',
+            'violet-glow': '0 0 24px -2px rgba(167, 139, 250, 0.6)',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-deep-space text-[#F4F1FF] font-sans min-h-screen flex flex-col selection:bg-[#6D45C5] selection:text-[#F4F1FF] relative overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- INTERACTIVE GALAXY CANVAS & TEXTURED COSMIC NEBULAE                      -->
+  <!-- ========================================================================= -->
+  
+  <!-- Fullscreen Interactive Parallax Canvas (Thousands of stars, clusters, parallax) -->
+  <canvas id="galaxyCanvas"></canvas>
+
+  <!-- Fine-Grain Cosmic Dust Texture Overlay -->
+  <div class="cosmic-dust-overlay"></div>
+
+  <!-- Layered Ambient Drifting Nebula Clouds -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="nebula-cloud nebula-1"></div>
+    <div class="nebula-cloud nebula-2"></div>
+    <div class="nebula-cloud nebula-3"></div>
+
+    <!-- Faint Orbital Ring Vectors -->
+    <svg class="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="20%" cy="30%" rx="380" ry="200" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="6 10" class="animate-spin-slow"/>
+      <ellipse cx="85%" cy="70%" rx="480" ry="240" fill="none" stroke="#57D9F4" stroke-width="1.5" stroke-dasharray="8 12" class="animate-spin-slow-reverse"/>
+    </svg>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- TOP NAVIGATION: Open Source Orbit                                         -->
+  <!-- ========================================================================= -->
+  <header class="border-b border-[#A78BFA]/20 bg-[#10152B]/80 backdrop-blur-md sticky top-0 z-40 shadow-galaxy-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center space-x-3 group" id="navLogo">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#6D45C5] via-[#A78BFA] to-[#57D9F4] p-[1.5px] shadow-[0_0_15px_rgba(87,217,244,0.3)] transform group-hover:rotate-6 transition-transform">
+          <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center">
+            <svg class="w-6 h-6 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-display font-bold text-2xl text-[#F4F1FF] tracking-tight group-hover:text-[#57D9F4] transition-colors">PRbit</span>
+            <span class="text-[10px] font-mono uppercase bg-[#6D45C5]/30 text-[#57D9F4] border border-[#57D9F4]/40 px-2 py-0.5 rounded-full font-bold">3D Galaxy</span>
+          </div>
+          <p class="text-[11px] text-[#B8B5D3] hidden sm:block">First-Time Contributor Flightpath</p>
+        </div>
+      </a>
+
+      <!-- Center Links (Desktop) -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-[#B8B5D3]">
+        <a href="#how-it-works" class="hover:text-[#57D9F4] transition-colors">How It Works</a>
+        <a href="#journey-section" class="hover:text-[#57D9F4] transition-colors">Milestones</a>
+        <a href="#repos-preview" class="hover:text-[#57D9F4] transition-colors">Explore Issues</a>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Saved Bookmarks Drawer Trigger -->
+        <button id="savedIssuesBtn" class="relative flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold text-[#F4F1FF] bg-[#182040]/80 hover:bg-[#202b54] border border-[#A78BFA]/30 hover:border-[#57D9F4] rounded-xl shadow-galaxy-sm transition-all">
+          <svg class="w-4 h-4 text-[#57D9F4]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+          </svg>
+          <span class="hidden sm:inline">Saved</span>
+          <span id="savedCountBadge" class="bg-[#6D45C5] text-[#F4F1FF] text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold">0</span>
+        </button>
+
+        <!-- CTA Start Journey Button -->
+        <a href="#journey-section" id="navStartJourneyBtn" class="px-4 py-2 text-xs sm:text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-xl shadow-[0_0_16px_rgba(87,217,244,0.4)] transition-all transform hover:-translate-y-0.5">
+          Launch Journey
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- HERO SECTION: Find Your Place in the Open Source Universe                -->
+  <!-- ========================================================================= -->
+  <section id="hero" class="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-12 pb-16 md:pt-20 md:pb-28 flex flex-col md:flex-row items-center justify-between gap-12">
+    
+    <!-- Hero Copy -->
+    <div class="flex-1 text-center md:text-left space-y-6">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-[#10152B]/90 border border-[#A78BFA]/35 rounded-full shadow-[0_0_16px_rgba(109,69,197,0.3)]">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#57D9F4] animate-ping"></span>
+        <span class="text-xs font-mono font-bold text-[#A78BFA] uppercase tracking-wider">Interactive 3D Galaxy Odyssey</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-[#F4F1FF] tracking-tight leading-tight">
+        Find Your Place in the <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] via-[#57D9F4] to-[#F4F1FF]">Open Source Universe</span>.
+      </h1>
+
+      <p class="text-base sm:text-lg text-[#B8B5D3] max-w-xl mx-auto md:mx-0 leading-relaxed">
+        Discover projects that match your skills. Explore real issues. Launch your first contribution with your 3D rocket guide across six floating milestones.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-2">
+        <button id="heroLaunchBtn" class="w-full sm:w-auto px-7 py-3.5 text-base font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center space-x-2 cursor-pointer">
+          <span>Launch Your Journey</span>
+          <svg class="w-5 h-5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+        <a href="#repos-preview" class="w-full sm:w-auto px-6 py-3.5 text-base font-display font-bold text-[#F4F1FF] bg-[#10152B]/80 hover:bg-[#182040] border border-[#A78BFA]/30 hover:border-[#57D9F4] rounded-2xl shadow-galaxy-sm transition-all flex items-center justify-center space-x-2">
+          <span>Explore Open Issues</span>
+        </a>
+      </div>
+
+      <!-- Quick stats pill -->
+      <div class="flex items-center justify-center md:justify-start space-x-6 pt-4 text-xs font-mono text-[#B8B5D3]">
+        <div class="flex items-center space-x-2">
+          <span class="text-base">✨</span>
+          <span>100% Free & Live GitHub API</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-base">🚀</span>
+          <span>6 Floating Space Stations</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-base">🌟</span>
+          <span>Zero Git Fear</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero 3D Rocket & Cute Developer Visual -->
+    <div class="flex-1 flex items-center justify-center relative w-full max-w-md md:max-w-lg">
+      
+      <!-- Ambient Orbit Rings around Rocket -->
+      <div class="absolute w-72 h-72 rounded-full border border-dashed border-[#A78BFA]/30 animate-spin-slow pointer-events-none"></div>
+      <div class="absolute w-96 h-96 rounded-full border border-dashed border-[#57D9F4]/25 animate-spin-slow-reverse pointer-events-none"></div>
+
+      <!-- Floating Tech Satellite Badges -->
+      <div class="floating-badge badge-js">JS</div>
+      <div class="floating-badge badge-py">Python</div>
+      <div class="floating-badge badge-react">React</div>
+      <div class="floating-badge badge-star">🌟 PR #1</div>
+
+      <!-- Main Illustrated 3D Rocket Character (Dark Galaxy Edition) -->
+      <div class="rocket-hero-container animate-bob" id="heroRocketGraphic">
+        <svg class="w-72 h-72 sm:w-80 sm:h-80 drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Metallic Rocket Body Gradient -->
+            <linearGradient id="fuselageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#242E5E" />
+              <stop offset="50%" stop-color="#141B3B" />
+              <stop offset="100%" stop-color="#0E122A" />
+            </linearGradient>
+
+            <!-- Luminous Violet Wing Gradient -->
+            <linearGradient id="finGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#A78BFA" />
+              <stop offset="100%" stop-color="#6D45C5" />
+            </linearGradient>
+
+            <!-- Cyan Glow Exhaust Plume -->
+            <linearGradient id="exhaustGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#57D9F4" stop-opacity="0.95" />
+              <stop offset="60%" stop-color="#A78BFA" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#6D45C5" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Cockpit Visor Glass -->
+            <linearGradient id="glassVisor" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#57D9F4" stop-opacity="0.8" />
+              <stop offset="40%" stop-color="#A78BFA" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#10152B" stop-opacity="0.9" />
+            </linearGradient>
+          </defs>
+
+          <!-- Rocket Ambient Depth Glow Shadow -->
+          <ellipse cx="160" cy="285" rx="55" ry="14" fill="rgba(87, 217, 244, 0.15)" filter="blur(8px)" />
+
+          <!-- Glowing Engine Exhaust Plumes -->
+          <g class="animate-flame">
+            <path d="M142 220 C142 275 160 300 160 300 C160 300 178 275 178 220 Z" fill="url(#exhaustGrad)" />
+            <path d="M148 220 C148 260 160 280 160 280 C160 280 172 260 172 220 Z" fill="#F4F1FF" />
+          </g>
+
+          <!-- Stardust Propulsion Sparks -->
+          <circle cx="155" cy="285" r="4" fill="#57D9F4" class="thrust-particle" />
+          <circle cx="165" cy="292" r="3" fill="#A78BFA" class="thrust-particle" style="animation-delay: 0.35s;" />
+
+          <!-- Left & Right Metallic Violet Fins -->
+          <path d="M115 175 C90 190 85 228 108 228 L125 210 Z" fill="url(#finGrad)" stroke="#57D9F4" stroke-width="1.5" />
+          <path d="M205 175 C230 190 235 228 212 228 L195 210 Z" fill="url(#finGrad)" stroke="#57D9F4" stroke-width="1.5" />
+
+          <!-- Metallic Fuselage Body -->
+          <path d="M160 42 C192 88 202 170 196 215 C175 223 145 223 124 215 C118 170 128 88 160 42 Z" fill="url(#fuselageGrad)" stroke="#A78BFA" stroke-width="2" />
+
+          <!-- Luminous Cyan Nose Cone -->
+          <path d="M160 42 C176 68 186 94 189 105 L131 105 C134 94 144 68 160 42 Z" fill="#57D9F4" />
+
+          <!-- Electric Violet Fuselage Stripe & Hull Seam -->
+          <path d="M128 178 C145 184 175 184 192 178 L194 194 C175 200 145 200 126 194 Z" fill="#6D45C5" stroke="#A78BFA" stroke-width="1" />
+
+          <!-- Circular Bubble Cockpit Window -->
+          <circle cx="160" cy="142" r="35" fill="#10152B" stroke="#57D9F4" stroke-width="3" />
+          <circle cx="160" cy="142" r="31" fill="url(#glassVisor)" />
+
+          <!-- Cute Young Developer inside Space Helmet -->
+          <!-- Helmet Ring -->
+          <circle cx="160" cy="142" r="23" fill="#182040" stroke="#F4F1FF" stroke-width="2" />
+          <!-- Developer Head & Visor -->
+          <circle cx="160" cy="143" r="16" fill="#F8E3D2" />
+          <!-- Hair bang -->
+          <path d="M148 136 C152 130 168 130 172 136 C168 133 152 133 148 136 Z" fill="#39304D" />
+          <!-- Cute Happy Eyes (smiling arcs) -->
+          <path d="M153 143 Q156 140 159 143" stroke="#10152B" stroke-width="2" stroke-linecap="round" fill="none" />
+          <path d="M161 143 Q164 140 167 143" stroke="#10152B" stroke-width="2" stroke-linecap="round" fill="none" />
+          <!-- Rosy Cheeks -->
+          <circle cx="152" cy="147" r="2.5" fill="#FFB59E" opacity="0.8" />
+          <circle cx="168" cy="147" r="2.5" fill="#FFB59E" opacity="0.8" />
+          <!-- Smile -->
+          <path d="M157 148 Q160 151 163 148" stroke="#10152B" stroke-width="1.8" stroke-linecap="round" fill="none" />
+          <!-- Cute Space Helmet Antenna -->
+          <line x1="160" y1="119" x2="160" y2="111" stroke="#57D9F4" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="160" cy="109" r="3.5" fill="#A78BFA" />
+          <!-- Visor Glass Starlight Glare -->
+          <path d="M144 130 Q150 125 158 124" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.8" fill="none" />
+        </svg>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- THE SIX-STEP USER JOURNEY (Central Interactive Experience)                -->
+  <!-- ========================================================================= -->
+  <section id="journey-section" class="relative z-10 max-w-5xl w-full mx-auto px-4 sm:px-6 py-10">
+    
+    <!-- Milestone Progress Header -->
+    <div class="mb-8 p-5 bg-[#10152B]/80 border border-[#A78BFA]/25 rounded-3xl shadow-galaxy-sm backdrop-blur-md">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] font-bold">Space Flightpath</span>
+          <h2 class="text-xl sm:text-2xl font-display font-bold text-[#F4F1FF]">Six Milestones to Pull Request #1</h2>
+        </div>
+
+        <!-- Progress Percentage & Step Indicator -->
+        <div class="w-full sm:w-64 space-y-2">
+          <div class="flex items-center justify-between text-xs font-mono font-bold">
+            <span class="text-[#B8B5D3]">STATION <span id="currentStepNumber" class="text-[#57D9F4]">1</span> OF 6</span>
+            <span id="currentStepTitle" class="text-[#A78BFA]">Sign In</span>
+            <span id="progressPercentage" class="text-[#57D9F4]">16%</span>
+          </div>
+          <!-- Progress Bar Track -->
+          <div class="w-full h-2.5 bg-[#080914] rounded-full overflow-hidden p-0.5 border border-[#A78BFA]/30">
+            <div id="progressBarFill" class="h-full bg-gradient-to-r from-[#6D45C5] via-[#A78BFA] to-[#57D9F4] rounded-full transition-all duration-500 ease-out shadow-[0_0_12px_rgba(87,217,244,0.6)]" style="width: 16.66%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Illustrated Journey Map Path (6 Floating Space Stations) -->
+    <div class="relative mb-8 bg-[#10152B]/80 border border-[#A78BFA]/25 rounded-3xl p-4 sm:p-6 shadow-galaxy-sm backdrop-blur-md overflow-hidden">
+      
+      <!-- Curved SVG Flight Path Background -->
+      <svg class="w-full h-16 sm:h-20" viewBox="0 0 900 80" fill="none" preserveAspectRatio="none">
+        <!-- Dashed glowing route -->
+        <path d="M 50 40 Q 225 15, 450 40 T 850 40" stroke="#57D9F4" stroke-width="3" stroke-dasharray="8 8" class="flight-route-dash" />
+      </svg>
+
+      <!-- 6 Milestone Space Stations along the path -->
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-4 relative -mt-12 sm:-mt-16 z-10">
+        
+        <!-- Station 1 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="1">
+          <div class="milestone-planet planet-1 active">
+            <span class="step-num font-mono font-bold text-xs">1</span>
+            <span class="rocket-pin" id="rocketPin1">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#57D9F4] block mt-2 group-hover:text-[#F4F1FF]">Sign In</span>
+        </button>
+
+        <!-- Station 2 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="2">
+          <div class="milestone-planet planet-2">
+            <span class="step-num font-mono font-bold text-xs">2</span>
+            <span class="rocket-pin hidden" id="rocketPin2">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Skills</span>
+        </button>
+
+        <!-- Station 3 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="3">
+          <div class="milestone-planet planet-3">
+            <span class="step-num font-mono font-bold text-xs">3</span>
+            <span class="rocket-pin hidden" id="rocketPin3">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Rate Self</span>
+        </button>
+
+        <!-- Station 4 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="4">
+          <div class="milestone-planet planet-4">
+            <span class="step-num font-mono font-bold text-xs">4</span>
+            <span class="rocket-pin hidden" id="rocketPin4">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Time</span>
+        </button>
+
+        <!-- Station 5 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="5">
+          <div class="milestone-planet planet-5">
+            <span class="step-num font-mono font-bold text-xs">5</span>
+            <span class="rocket-pin hidden" id="rocketPin5">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Git Buddy</span>
+        </button>
+
+        <!-- Station 6 -->
+        <button type="button" class="milestone-station group cursor-pointer text-center" data-step="6">
+          <div class="milestone-planet planet-6">
+            <span class="step-num font-mono font-bold text-xs">6</span>
+            <span class="rocket-pin hidden" id="rocketPin6">🚀</span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Your Repos</span>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Active Milestone Card Container (Midnight Glassmorphism) -->
+    <div id="activeMilestoneCard" class="bg-[#10152B]/85 border border-[#A78BFA]/25 rounded-3xl shadow-galaxy-lg p-6 sm:p-8 md:p-10 relative overflow-hidden backdrop-blur-xl transition-all">
+      
+      <!-- ========================================== -->
+      <!-- STEP 1 — SIGN IN                           -->
+      <!-- ========================================== -->
+      <section id="step1" class="journey-step active" data-step="1">
+        <div class="max-w-xl mx-auto text-center space-y-6">
+          
+          <div class="space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 1</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">Welcome aboard!</h3>
+            <p class="text-sm text-[#B8B5D3]">
+              Let's get you ready for your first open-source contribution.
+            </p>
+          </div>
+
+          <!-- Small rocket landing illustration -->
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-[#6D45C5] to-[#57D9F4] p-[2px] shadow-cyan-glow">
+            <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center text-2xl">
+              🪐
+            </div>
+          </div>
+
+          <!-- GitHub Sign-In / Lookup Form -->
+          <form id="step1Form" class="space-y-4 pt-2">
+            <div class="space-y-1.5 text-left">
+              <label for="githubUsernameInput" class="block text-xs font-mono font-bold text-[#B8B5D3]">
+                PUBLIC GITHUB USERNAME
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="githubUsernameInput"
+                  placeholder="e.g. octocat, gaearon, sindresorhus" 
+                  autocomplete="username"
+                  class="w-full px-4 py-3 bg-[#080914] border border-[#A78BFA]/30 focus:border-[#57D9F4] rounded-2xl text-[#F4F1FF] placeholder-[#B8B5D3]/40 text-sm outline-none transition-all shadow-inner"
+                />
+                <!-- Live Check Spinner -->
+                <div id="usernameCheckSpinner" class="hidden absolute inset-y-0 right-0 pr-4 flex items-center">
+                  <svg class="animate-spin h-5 w-5 text-[#57D9F4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profile Preview Card (Appears when valid public handle found) -->
+            <div id="profilePreviewCard" class="hidden max-w-md mx-auto p-4 bg-[#182040]/80 border-2 border-[#57D9F4] rounded-2xl text-left transition-all shadow-galaxy-sm backdrop-blur-md">
+              <div class="flex items-center space-x-3.5">
+                <img id="previewAvatar" src="" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-[#57D9F4] object-cover shadow-sm" />
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <h4 id="previewName" class="text-sm font-display font-bold text-[#F4F1FF] truncate"></h4>
+                    <span id="previewLogin" class="text-xs font-mono text-[#57D9F4]"></span>
+                  </div>
+                  <p id="previewBio" class="text-xs text-[#B8B5D3] line-clamp-1 mt-0.5"></p>
+                  <div class="flex items-center space-x-3 text-[11px] text-[#B8B5D3] mt-1 font-mono">
+                    <span><strong id="previewRepos" class="text-[#F4F1FF]">0</strong> public repos</span>
+                    <span>•</span>
+                    <a id="previewProfileLink" href="#" target="_blank" rel="noopener noreferrer" class="text-[#57D9F4] hover:underline font-bold">View GitHub Profile ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sample username helper buttons -->
+            <div class="text-xs text-[#B8B5D3] pt-1 flex flex-wrap items-center justify-center gap-2">
+              <span class="font-mono text-[11px]">Or test with pilot:</span>
+              <button type="button" class="sample-handle-btn px-2.5 py-1 bg-[#182040] hover:bg-[#242E5E] border border-[#A78BFA]/30 hover:border-[#57D9F4] text-[#F4F1FF] rounded-lg font-mono font-bold transition-colors">gaearon</button>
+              <button type="button" class="sample-handle-btn px-2.5 py-1 bg-[#182040] hover:bg-[#242E5E] border border-[#A78BFA]/30 hover:border-[#57D9F4] text-[#F4F1FF] rounded-lg font-mono font-bold transition-colors">sindresorhus</button>
+              <button type="button" class="sample-handle-btn px-2.5 py-1 bg-[#182040] hover:bg-[#242E5E] border border-[#A78BFA]/30 hover:border-[#57D9F4] text-[#F4F1FF] rounded-lg font-mono font-bold transition-colors">torvalds</button>
+              <button type="button" id="guestBtn" class="px-2.5 py-1 text-[#57D9F4] hover:underline font-bold">Skip as Guest</button>
+            </div>
+
+            <!-- Action button -->
+            <div class="pt-3">
+              <button 
+                type="submit" 
+                id="step1SubmitBtn"
+                class="w-full py-3.5 px-6 font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all transform hover:-translate-y-0.5 cursor-pointer text-sm"
+              >
+                Continue to Skills →
+              </button>
+            </div>
+          </form>
+
+          <!-- Why profile is useful note -->
+          <p class="text-xs text-[#B8B5D3]/80 leading-relaxed border-t border-[#A78BFA]/20 pt-4 max-w-sm mx-auto">
+            🔒 <strong>Public Lookup Only:</strong> We only fetch your public profile to celebrate your journey. We never ask for or store passwords or private tokens.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 2 — CHOOSE YOUR SKILLS                -->
+      <!-- ========================================== -->
+      <section id="step2" class="journey-step hidden" data-step="2">
+        <div class="space-y-6">
+          
+          <div class="text-center space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 2</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">What do you like building?</h3>
+            <p class="text-sm text-[#B8B5D3] max-w-md mx-auto">
+              Select all the programming languages and disciplines you want to explore. Multiple selections encouraged!
+            </p>
+          </div>
+
+          <!-- 11 Dark Skill Cards Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4" id="skillsGrid">
+            
+            <!-- Skill 1: JavaScript -->
+            <div class="skill-card selected" data-skill="javascript">
+              <span class="selection-check">✓</span>
+              <div class="skill-icon text-[#FFD666] border-[#FFD666]/40">JS</div>
+              <span class="skill-name text-[#F4F1FF]">JavaScript</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Web & Node.js</span>
+            </div>
+
+            <!-- Skill 2: TypeScript -->
+            <div class="skill-card" data-skill="typescript">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">TS</div>
+              <span class="skill-name text-[#F4F1FF]">TypeScript</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Type-safe JS</span>
+            </div>
+
+            <!-- Skill 3: Python -->
+            <div class="skill-card" data-skill="python">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">PY</div>
+              <span class="skill-name text-[#F4F1FF]">Python</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Data & Backend</span>
+            </div>
+
+            <!-- Skill 4: HTML and CSS -->
+            <div class="skill-card" data-skill="html-css">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">&lt;&gt;</div>
+              <span class="skill-name text-[#F4F1FF]">HTML & CSS</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Styling & UI</span>
+            </div>
+
+            <!-- Skill 5: React -->
+            <div class="skill-card" data-skill="react">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">⚛</div>
+              <span class="skill-name text-[#F4F1FF]">React</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Component Web</span>
+            </div>
+
+            <!-- Skill 6: Java -->
+            <div class="skill-card" data-skill="java">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40">☕</div>
+              <span class="skill-name text-[#F4F1FF]">Java</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Enterprise & Android</span>
+            </div>
+
+            <!-- Skill 7: C++ -->
+            <div class="skill-card" data-skill="cpp">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">C++</div>
+              <span class="skill-name text-[#F4F1FF]">C++</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Systems & Games</span>
+            </div>
+
+            <!-- Skill 8: Documentation -->
+            <div class="skill-card" data-skill="docs">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">📖</div>
+              <span class="skill-name text-[#F4F1FF]">Documentation</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Guides & Typos</span>
+            </div>
+
+            <!-- Skill 9: Testing -->
+            <div class="skill-card" data-skill="testing">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">🧪</div>
+              <span class="skill-name text-[#F4F1FF]">Testing</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Unit & Integration</span>
+            </div>
+
+            <!-- Skill 10: Accessibility -->
+            <div class="skill-card" data-skill="accessibility">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">♿</div>
+              <span class="skill-name text-[#F4F1FF]">Accessibility</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">a11y & ARIA</span>
+            </div>
+
+            <!-- Skill 11: Design -->
+            <div class="skill-card" data-skill="design">
+              <span class="selection-check hidden">✓</span>
+              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40">🎨</div>
+              <span class="skill-name text-[#F4F1FF]">Design</span>
+              <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">SVGs & Design Tokens</span>
+            </div>
+
+          </div>
+
+          <!-- Selected summary & Continue -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#A78BFA]/20">
+            <div class="text-xs text-[#B8B5D3]">
+              <span>Selected for radar: </span>
+              <span id="selectedSkillsSummary" class="text-[#57D9F4] font-bold">JavaScript</span>
+            </div>
+
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+              <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
+                ← Back
+              </button>
+              <button type="button" id="step2NextBtn" class="flex-1 sm:flex-initial px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
+                Continue to Confidence →
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 3 — RATE YOURSELF                     -->
+      <!-- ========================================== -->
+      <section id="step3" class="journey-step hidden" data-step="3">
+        <div class="max-w-xl mx-auto space-y-6 text-center">
+          
+          <div class="space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 3</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">Where are you on your coding journey?</h3>
+            <p class="text-sm text-[#B8B5D3]">
+              Rate your confidence from 1 to 10 so we calibrate recommended repository tasks.
+            </p>
+          </div>
+
+          <!-- Slider Container -->
+          <div class="p-6 sm:p-8 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-3xl space-y-6 shadow-inner backdrop-blur-md">
+            
+            <!-- Value Display Badge -->
+            <div class="flex items-center justify-center space-x-3">
+              <span class="text-xs font-mono font-bold text-[#B8B5D3]">CONFIDENCE SCORE:</span>
+              <span id="sliderValueBadge" class="text-3xl font-display font-black text-[#57D9F4]">3</span>
+              <span class="text-xs font-mono text-[#B8B5D3]">/ 10</span>
+            </div>
+
+            <!-- Accessible 1-10 Slider -->
+            <div class="space-y-2">
+              <input 
+                type="range" 
+                id="confidenceSlider" 
+                min="1" 
+                max="10" 
+                value="3" 
+                step="1"
+                aria-label="Rate your coding confidence from 1 to 10"
+                class="w-full cursor-pointer"
+              />
+              <div class="flex justify-between text-[11px] font-mono text-[#B8B5D3] px-1">
+                <span>1 (Curious Explorer)</span>
+                <span>5 (Builder)</span>
+                <span>10 (Star Voyager)</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Tier Card Description -->
+            <div id="sliderTierCard" class="p-5 bg-[#10152B] border border-[#57D9F4]/40 rounded-2xl transition-all text-left">
+              <div class="flex items-center space-x-3 mb-1.5">
+                <span id="tierEmoji" class="text-2xl">🌱</span>
+                <h4 id="tierTitle" class="text-base font-display font-bold text-[#F4F1FF]">Just getting started</h4>
+              </div>
+              <p id="tierDescription" class="text-xs sm:text-sm text-[#B8B5D3] leading-relaxed">
+                Focusing on syntax basics, beginner-friendly repositories, typo fixes, and getting comfortable with Git workflows.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
+            <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
+              ← Back
+            </button>
+            <button type="button" id="step3NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
+              Continue to Time →
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 4 — PICK YOUR TIME                    -->
+      <!-- ========================================== -->
+      <section id="step4" class="journey-step hidden" data-step="4">
+        <div class="space-y-6">
+          
+          <div class="text-center space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 4</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">How much time can you give?</h3>
+            <p class="text-sm text-[#B8B5D3] max-w-md mx-auto">
+              This represents your available time for an initial contribution session, not a promise that an issue can be finished in that window.
+            </p>
+          </div>
+
+          <!-- 3 Dark Time Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="timeGrid">
+            
+            <!-- 1 Hour -->
+            <div class="time-card selected" data-hours="1">
+              <span class="selection-check">✓</span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4]">⚡</div>
+              <h4 class="time-hours text-[#F4F1FF]">1 Hour</h4>
+              <p class="time-subtitle text-[#57D9F4]">MICRO-SPRINT</p>
+              <p class="time-desc">
+                Ideal for quick documentation typos, broken link repairs, and small CSS tweaks. Fast feedback cycle.
+              </p>
+            </div>
+
+            <!-- 2 Hours -->
+            <div class="time-card" data-hours="2">
+              <span class="selection-check hidden">✓</span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#A78BFA]">🛠️</div>
+              <h4 class="time-hours text-[#F4F1FF]">2 Hours</h4>
+              <p class="time-subtitle text-[#A78BFA]">FOCUSED SESSION</p>
+              <p class="time-desc">
+                Great for writing unit tests, refactoring helper methods, or investigating a localized bug report.
+              </p>
+            </div>
+
+            <!-- 3 Hours -->
+            <div class="time-card" data-hours="3">
+              <span class="selection-check hidden">✓</span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4]">🚀</div>
+              <h4 class="time-hours text-[#F4F1FF]">3 Hours</h4>
+              <p class="time-subtitle text-[#57D9F4]">DEEP DIVE</p>
+              <p class="time-desc">
+                Sufficient time to clone a larger repository, build locally, experiment with features, and write comprehensive tests.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
+            <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
+              ← Back
+            </button>
+            <button type="button" id="step4NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
+              Meet Git Buddy →
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 5 — GIT BUDDY                         -->
+      <!-- ========================================== -->
+      <section id="step5" class="journey-step hidden" data-step="5">
+        <div class="space-y-6">
+          
+          <div class="text-center space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 5</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">Your first PR, one step at a time.</h3>
+            <p class="text-sm text-[#B8B5D3] max-w-lg mx-auto">
+              Follow this illustrated flight checklist. Never automatically commit or push code — you hold the flight controls!
+            </p>
+          </div>
+
+          <!-- Git Buddy Header Bar -->
+          <div class="flex items-center justify-between p-4 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-2xl">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">🤖</span>
+              <div>
+                <h4 class="text-sm font-display font-bold text-[#F4F1FF]">Git Buddy Co-Pilot</h4>
+                <p class="text-xs text-[#B8B5D3]">Standard Pull Request Workflow</p>
+              </div>
+            </div>
+            <button id="copyAllGitBtn" class="px-3.5 py-1.5 text-xs font-mono font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-xl transition-all flex items-center space-x-1 shadow-cyan-glow">
+              <span>Copy Full Script</span>
+              <svg class="w-3.5 h-3.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </button>
+          </div>
+
+          <!-- 8 Step Illustrated Mini-Journey -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            
+            <!-- Step 1 -->
+            <div class="git-step-card">
+              <div class="git-step-num">1</div>
+              <div class="flex-1">
+                <h5 class="git-step-title text-[#F4F1FF]">Find an issue matching your skills</h5>
+                <p class="git-step-desc text-[#B8B5D3]">Look for labels like <code class="text-[#57D9F4]">good first issue</code> or <code class="text-[#57D9F4]">help wanted</code>.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="git-step-card">
+              <div class="git-step-num">2</div>
+              <div class="flex-1">
+                <h5 class="git-step-title text-[#F4F1FF]">Read guidelines & comments</h5>
+                <p class="git-step-desc text-[#B8B5D3]">Check <code>CONTRIBUTING.md</code> and comment politely to ensure nobody else is already working on it.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="git-step-card">
+              <div class="git-step-num">3</div>
+              <div class="flex-1">
+                <h5 class="git-step-title text-[#F4F1FF]">Fork the repository</h5>
+                <p class="git-step-desc text-[#B8B5D3]">Click the "Fork" button on the GitHub page to create your own copy under your account.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="git-step-card">
+              <div class="git-step-num">4</div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="git-step-title text-[#F4F1FF]">Clone and create a branch</h5>
+                  <button type="button" class="copy-cmd-btn text-xs text-[#57D9F4] hover:underline" data-cmd="git checkout -b fix/my-first-contribution">Copy</button>
+                </div>
+                <div class="git-code-box">git checkout -b fix/my-first-contribution</div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="git-step-card">
+              <div class="git-step-num">5</div>
+              <div class="flex-1">
+                <h5 class="git-step-title text-[#F4F1FF]">Make a small, focused change</h5>
+                <p class="git-step-desc text-[#B8B5D3]">Edit only what is necessary to solve the issue. Keep diffs clean and easy for maintainers to review.</p>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="git-step-card">
+              <div class="git-step-num">6</div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="git-step-title text-[#F4F1FF]">Test your changes</h5>
+                  <button type="button" class="copy-cmd-btn text-xs text-[#57D9F4] hover:underline" data-cmd="npm test">Copy</button>
+                </div>
+                <div class="git-code-box">npm test</div>
+              </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="git-step-card">
+              <div class="git-step-num">7</div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="git-step-title text-[#F4F1FF]">Commit and push your branch</h5>
+                  <button type="button" class="copy-cmd-btn text-xs text-[#57D9F4] hover:underline" data-cmd='git commit -m "fix: resolve typo in docs" && git push -u origin fix/my-first-contribution'>Copy</button>
+                </div>
+                <div class="git-code-box">git commit -m "fix: resolve typo in docs"</div>
+              </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="git-step-card">
+              <div class="git-step-num">8</div>
+              <div class="flex-1">
+                <h5 class="git-step-title text-[#F4F1FF]">Open a Pull Request</h5>
+                <p class="git-step-desc text-[#B8B5D3]">Go to the original repo on GitHub, click "Compare & pull request", fill out the template, and submit!</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
+            <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
+              ← Back
+            </button>
+            <button type="button" id="step5NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
+              Discover Repositories →
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- STEP 6 — YOUR REPOS                        -->
+      <!-- ========================================== -->
+      <section id="step6" class="journey-step hidden" data-step="6">
+        <div class="space-y-6">
+          
+          <div class="text-center space-y-2">
+            <span class="text-xs font-mono uppercase tracking-widest text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/40 font-bold">Milestone 6</span>
+            <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">Your next contribution is out there.</h3>
+            <p class="text-sm text-[#B8B5D3] max-w-xl mx-auto" id="reposSubtitle">
+              Real open-source opportunities fetched from GitHub matching your selected skills.
+            </p>
+          </div>
+
+          <!-- Search & Filter Controls Toolbar -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-2xl shadow-galaxy-sm backdrop-blur-md">
+            
+            <!-- In-page Keyword Filter -->
+            <div class="relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#57D9F4]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <input 
+                type="text" 
+                id="filterIssuesInput"
+                placeholder="Filter by keyword, repo, or label..." 
+                class="w-full pl-9 pr-4 py-2 bg-[#080914] border border-[#A78BFA]/30 focus:border-[#57D9F4] rounded-xl text-xs sm:text-sm text-[#F4F1FF] placeholder-[#B8B5D3]/50 outline-none"
+              />
+            </div>
+
+            <!-- Sort Dropdown & Refresh -->
+            <div class="flex items-center space-x-2">
+              <select id="sortIssuesSelect" class="bg-[#080914] border border-[#A78BFA]/30 text-[#F4F1FF] text-xs py-2 px-3 rounded-xl outline-none font-medium">
+                <option value="recent">Most Recently Updated</option>
+                <option value="least-comments">Fewest Comments (Unclaimed)</option>
+                <option value="most-comments">Most Active</option>
+              </select>
+
+              <button id="refreshIssuesBtn" class="p-2 text-[#B8B5D3] hover:text-[#57D9F4] bg-[#080914] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-xl transition-colors" title="Fetch Fresh Issues">
+                <svg id="refreshIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Rate Limit Notice (graceful fallback) -->
+          <div id="apiNoticeBanner" class="hidden p-3.5 bg-[#182040] border border-[#A78BFA] rounded-2xl text-xs text-[#F4F1FF] flex items-center justify-between shadow-sm">
+            <div class="flex items-center space-x-2">
+              <span>⚠️</span>
+              <span id="apiNoticeText">GitHub API rate limit reached for unauthenticated requests. Showing verified open-source tickets!</span>
+            </div>
+            <span class="font-mono text-[10px] font-bold text-[#57D9F4] bg-[#080914] px-2 py-0.5 rounded border border-[#57D9F4]">Verified Fallback</span>
+          </div>
+
+          <!-- Loading State -->
+          <div id="issuesLoadingState" class="space-y-4 py-8">
+            <div class="flex flex-col items-center justify-center space-y-3">
+              <svg class="animate-spin h-8 w-8 text-[#57D9F4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p class="text-xs font-mono text-[#57D9F4]">Scanning GitHub galaxy for open-source issues...</p>
+            </div>
+          </div>
+
+          <!-- Live Issues Grid (Completely Stable) -->
+          <div id="issuesContainer" class="hidden grid grid-cols-1 gap-4">
+            <!-- Dynamically populated issue cards -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="issuesEmptyState" class="hidden text-center py-10 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-2xl">
+            <div class="text-3xl mb-2">🔍</div>
+            <h4 class="text-base font-display font-bold text-[#F4F1FF]">No matching issues found</h4>
+            <p class="text-xs text-[#B8B5D3] mt-1 mb-4">Try clearing your keyword filter or pick additional skills.</p>
+            <button id="clearFilterBtn" class="px-4 py-1.5 text-xs font-mono font-bold text-[#080914] bg-[#57D9F4] hover:bg-[#7ce2f7] rounded-xl shadow-sm">
+              Clear Filter
+            </button>
+          </div>
+
+          <!-- Disclaimer Explanation -->
+          <div class="p-4 bg-[#182040]/50 border border-[#A78BFA]/20 rounded-2xl text-xs text-[#B8B5D3] leading-relaxed">
+            <strong>Friendly Reminder:</strong> Beginner labels like <code>good first issue</code> are helpful signals from maintainers, but do not guarantee that an issue is easy or still unclaimed. Always read recent comments before starting work!
+          </div>
+
+          <!-- Final Encouraging Message -->
+          <div class="text-center py-6 space-y-2">
+            <div class="text-3xl animate-bounce">🌟</div>
+            <h4 class="text-xl font-display font-extrabold text-[#F4F1FF]">
+              "Your first contribution starts with one small step."
+            </h4>
+            <p class="text-xs text-[#B8B5D3]">You are ready to leave your mark on the open-source universe!</p>
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
+            <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
+              ← Back to Git Buddy
+            </button>
+            <button type="button" id="celebrateBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all flex items-center space-x-1.5 cursor-pointer">
+              <span>🎉 Celebrate Landing</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- HOW MATCHING WORKS SECTION                                                -->
+  <!-- ========================================================================= -->
+  <section id="how-it-works" class="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 py-16">
+    <div class="text-center mb-12">
+      <h3 class="text-3xl font-display font-extrabold text-[#F4F1FF]">How the Flightpath Works</h3>
+      <p class="text-sm text-[#B8B5D3] max-w-md mx-auto mt-2">
+        A thoughtful, 3-pillar matching engine that values your time and confidence.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="p-6 bg-[#10152B]/80 border-2 border-[#57D9F4]/40 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#57D9F4]/50 flex items-center justify-center text-2xl">
+          🎯
+        </div>
+        <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Curated Skill Alignment</h4>
+        <p class="text-xs text-[#B8B5D3] leading-relaxed">
+          We filter through hundreds of thousands of active GitHub tickets specifically for repositories written in your languages of choice.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-6 bg-[#10152B]/80 border-2 border-[#A78BFA]/40 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#A78BFA]/50 flex items-center justify-center text-2xl">
+          ⏳
+        </div>
+        <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Realistic Session Sizing</h4>
+        <p class="text-xs text-[#B8B5D3] leading-relaxed">
+          Whether you have a 1-hour micro sprint or a 3-hour deep dive, we prioritize tasks that offer clear, bounded scopes for beginner confidence.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-6 bg-[#10152B]/80 border-2 border-[#6D45C5]/60 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#6D45C5] flex items-center justify-center text-2xl">
+          🤝
+        </div>
+        <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Warm Welcoming Repos</h4>
+        <p class="text-xs text-[#B8B5D3] leading-relaxed">
+          Issues tagged with maintainer-verified beginner labels like <code>good first issue</code> have dedicated documentation and helpful community guides.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PREVIEW OF OPEN SOURCE OPPORTUNITIES                                      -->
+  <!-- ========================================================================= -->
+  <section id="repos-preview" class="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 py-12">
+    <div class="p-8 sm:p-12 bg-[#10152B]/85 border-2 border-[#57D9F4]/40 rounded-3xl shadow-galaxy flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-lg">
+      <div class="space-y-3 max-w-lg">
+        <span class="text-xs font-mono uppercase tracking-wider text-[#57D9F4] bg-[#182040] px-3 py-1 rounded-full border border-[#57D9F4]/50 font-bold">Live Opportunities</span>
+        <h3 class="text-2xl sm:text-3xl font-display font-bold text-[#F4F1FF]">Real repos waiting for your first commit</h3>
+        <p class="text-xs sm:text-sm text-[#B8B5D3] leading-relaxed">
+          From developer tools and educational tutorials to production web apps like React, Next.js, and freeCodeCamp. Start your journey above to get matched tickets!
+        </p>
+      </div>
+      <a href="#journey-section" class="px-7 py-3.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all transform hover:-translate-y-0.5 whitespace-nowrap">
+        Start Rocket Journey →
+      </a>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER                                                                    -->
+  <!-- ========================================================================= -->
+  <footer class="border-t border-[#A78BFA]/20 bg-[#080914] py-10 relative z-10 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#B8B5D3]">
+      <div class="flex items-center space-x-2">
+        <span class="font-display font-bold text-sm text-[#F4F1FF]">PRbit</span>
+        <span>•</span>
+        <span>A warm, beginner-friendly journey to your first PR.</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span>Powered by GitHub REST API</span>
+        <span>•</span>
+        <a href="#hero" class="hover:text-[#57D9F4] font-bold">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: SAVED ISSUES DRAWER                                                -->
+  <!-- ========================================================================= -->
+  <div id="savedModal" class="fixed inset-0 z-50 hidden bg-[#080914]/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-[#10152B] border-2 border-[#A78BFA]/40 rounded-3xl max-w-xl w-full p-6 shadow-galaxy-lg flex flex-col max-h-[85vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-[#A78BFA]/20">
+        <div class="flex items-center space-x-2">
+          <svg class="w-5 h-5 text-[#57D9F4]" fill="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+          <h4 class="text-base font-display font-bold text-[#F4F1FF]">Saved Opportunities</h4>
+          <span id="modalSavedCount" class="text-xs font-mono text-[#57D9F4]">(0)</span>
+        </div>
+        <button id="closeSavedModalBtn" class="text-[#B8B5D3] hover:text-[#F4F1FF] p-1 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="savedIssuesList" class="flex-1 overflow-y-auto py-4 space-y-3">
+        <!-- Dynamically rendered saved issues -->
+      </div>
+
+      <div class="pt-3 border-t border-[#A78BFA]/20 flex items-center justify-between text-xs">
+        <button id="clearAllSavedBtn" class="text-[#57D9F4] hover:underline font-mono font-bold">Clear all saved</button>
+        <button id="closeSavedModalSecondaryBtn" class="px-4 py-2 bg-[#182040] hover:bg-[#202b54] text-[#F4F1FF] rounded-xl border border-[#A78BFA]/30 font-bold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
