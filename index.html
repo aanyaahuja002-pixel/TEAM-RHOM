@@ -54,6 +54,70 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-deep-space text-[#F4F1FF] font-sans min-h-screen flex flex-col selection:bg-[#6D45C5] selection:text-[#F4F1FF] relative overflow-x-hidden">
+  <!-- ========================================================================= -->
+  <!-- 3D WARP SPEED / HYPERDRIVE STARFIELD OPENING INTRO SLIDE                  -->
+  <!-- ========================================================================= -->
+  <div id="warpIntroOverlay" class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#080914] transition-all duration-700 select-none">
+    
+    <!-- Fullscreen 3D Warp Speed Canvas -->
+    <canvas id="warpCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+    <!-- Radial Vignette to focus center content -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(8,9,20,0.6)_65%,rgba(8,9,20,0.95)_100%)] pointer-events-none"></div>
+
+    <!-- Centered Mission Briefing Card -->
+    <div id="warpContentCard" class="relative z-10 max-w-2xl w-[90%] sm:w-full p-8 sm:p-12 text-center bg-[#10152B]/85 border-2 border-[#57D9F4]/40 rounded-3xl shadow-[0_0_55px_rgba(87,217,244,0.35)] backdrop-blur-xl space-y-6 transform transition-all duration-700">
+      
+      <!-- Status Pill -->
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#182040]/90 border border-[#57D9F4]/50 shadow-[0_0_15px_rgba(87,217,244,0.3)]">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#57D9F4] animate-ping"></span>
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-[#57D9F4]">3D Hyperdrive Engaged</span>
+      </div>
+
+      <!-- Main Titles -->
+      <div class="space-y-2">
+        <h1 class="text-5xl sm:text-7xl font-display font-extrabold tracking-tight text-[#F4F1FF] leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] via-[#57D9F4] to-[#F4F1FF]">PRbit</span>
+        </h1>
+      </div>
+
+      <!-- Capability Chips -->
+      <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-[11px] font-mono text-[#F4F1FF]">
+        <span class="px-3 py-1 rounded-full bg-[#182040]/80 border border-[#A78BFA]/30 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg> <span>Gemma AI Matching</span>
+        </span>
+        <span class="px-3 py-1 rounded-full bg-[#182040]/80 border border-[#57D9F4]/30 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/></svg> <span>Voice Mascot Co-Pilot</span>
+        </span>
+        <span class="px-3 py-1 rounded-full bg-[#182040]/80 border border-[#6D45C5]/40 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-[#A78BFA] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><polygon points="12,6 16,16 12,13 8,16" fill="currentColor"/></svg> <span>6-Milestone Quest</span>
+        </span>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button 
+          id="enterGalaxyBtn" 
+          type="button" 
+          class="w-full sm:w-auto px-10 py-4 text-base sm:text-lg font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] via-[#57D9F4] to-[#F4F1FF] hover:opacity-95 rounded-2xl shadow-[0_0_35px_rgba(87,217,244,0.65)] hover:shadow-[0_0_50px_rgba(87,217,244,0.9)] transition-all transform hover:-translate-y-1 active:translate-y-0 cursor-pointer flex items-center justify-center space-x-2.5 group"
+        >
+          <span>Enter Galaxy</span>
+          <svg class="w-5 h-5 text-[#080914] transform group-hover:translate-x-1.5 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg>
+        </button>
+      </div>
+
+      <!-- Keyboard Tip -->
+      <p class="text-[11px] font-mono text-[#B8B5D3]/60">
+        Press button or <kbd class="px-1.5 py-0.5 rounded bg-[#182040] border border-[#A78BFA]/30 text-[#57D9F4]">Enter</kbd> to initiate hyperdrive jump
+      </p>
+
+    </div>
+
+    <!-- Lightspeed Flash Effect Layer (Triggered on launch) -->
+    <div id="warpFlashOverlay" class="absolute inset-0 bg-[#F4F1FF] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  </div>
+
 
   <!-- ========================================================================= -->
   <!-- INTERACTIVE GALAXY CANVAS & TEXTURED COSMIC NEBULAE                      -->
@@ -79,16 +143,17 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- TOP NAVIGATION: Open Source Orbit                                         -->
   <!-- ========================================================================= -->
-  <header class="border-b border-[#A78BFA]/20 bg-[#10152B]/80 backdrop-blur-md sticky top-0 z-40 shadow-galaxy-sm">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
+  <!-- TOP NAVIGATION: Oval Glassmorphic Flight Deck Floating Navbar              -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-2 sm:top-4 z-40 w-full px-2.5 sm:px-6 pointer-events-none">
+    <div class="oval-navbar pointer-events-auto max-w-7xl mx-auto px-3.5 sm:px-5 py-1.5 sm:py-2 flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300">
       
       <!-- Brand Logo -->
-      <a href="#hero" class="flex items-center space-x-3 group" id="navLogo">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#6D45C5] via-[#A78BFA] to-[#57D9F4] p-[1.5px] shadow-[0_0_15px_rgba(87,217,244,0.3)] transform group-hover:rotate-6 transition-transform">
-          <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center">
-            <svg class="w-6 h-6 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <a href="#hero" class="flex items-center space-x-2 group shrink-0" id="navLogo">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#6D45C5] via-[#A78BFA] to-[#57D9F4] p-[1.5px] shadow-[0_0_12px_rgba(87,217,244,0.4)] transform group-hover:rotate-6 transition-transform">
+          <div class="w-full h-full bg-[#10152B] rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
               <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
               <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
@@ -96,39 +161,98 @@
             </svg>
           </div>
         </div>
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="font-display font-bold text-2xl text-[#F4F1FF] tracking-tight group-hover:text-[#57D9F4] transition-colors">PRbit</span>
-            <span class="text-[10px] font-mono uppercase bg-[#6D45C5]/30 text-[#57D9F4] border border-[#57D9F4]/40 px-2 py-0.5 rounded-full font-bold">3D Galaxy</span>
-          </div>
-          <p class="text-[11px] text-[#B8B5D3] hidden sm:block">First-Time Contributor Flightpath</p>
+        <div class="flex items-center space-x-1.5">
+          <span class="font-display font-extrabold text-lg sm:text-xl text-[#F4F1FF] tracking-tight group-hover:text-[#57D9F4] transition-colors">PRbit</span>
+          <span class="hidden md:inline-block text-[9px] font-mono uppercase bg-[#6D45C5]/30 text-[#57D9F4] border border-[#57D9F4]/40 px-1.5 py-0.2 rounded-full font-bold">3D Galaxy</span>
         </div>
       </a>
 
-      <!-- Center Links (Desktop) -->
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-[#B8B5D3]">
-        <a href="#how-it-works" class="hover:text-[#57D9F4] transition-colors">How It Works</a>
-        <a href="#journey-section" class="hover:text-[#57D9F4] transition-colors">Milestones</a>
-        <a href="#repos-preview" class="hover:text-[#57D9F4] transition-colors">Explore Issues</a>
-      </nav>
-
-      <!-- Right Action Controls -->
-      <div class="flex items-center space-x-3">
-        <!-- Saved Bookmarks Drawer Trigger -->
-        <button id="savedIssuesBtn" class="relative flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold text-[#F4F1FF] bg-[#182040]/80 hover:bg-[#202b54] border border-[#A78BFA]/30 hover:border-[#57D9F4] rounded-xl shadow-galaxy-sm transition-all">
-          <svg class="w-4 h-4 text-[#57D9F4]" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-          </svg>
-          <span class="hidden sm:inline">Saved</span>
-          <span id="savedCountBadge" class="bg-[#6D45C5] text-[#F4F1FF] text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold">0</span>
+      <!-- Center Links (Desktop & Laptop) in Oval Pill Dock -->
+      <nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1 px-2 py-0.5 rounded-full bg-[#080914]/40 border border-[#A78BFA]/15 backdrop-blur-md shrink min-w-0">
+        <button id="reopenWarpBtn" type="button" class="nav-pill-link" title="Replay 3D Hyperdrive Warp Intro">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+          <span>Warp</span>
+        </button>
+        <a href="#how-it-works" class="nav-pill-link">How It Works</a>
+        <a href="#journey-section" class="nav-pill-link">Milestones</a>
+        <a href="#repos-preview" class="nav-pill-link">Explore Issues</a>
+        
+        <!-- Galaxy Leaderboard Nav Link -->
+        <button id="navLeaderboardBtn" type="button" class="nav-pill-link" title="Galaxy Leaderboard">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          <span>Leaderboard</span>
         </button>
 
-        <!-- CTA Start Journey Button -->
-        <a href="#journey-section" id="navStartJourneyBtn" class="px-4 py-2 text-xs sm:text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-xl shadow-[0_0_16px_rgba(87,217,244,0.4)] transition-all transform hover:-translate-y-0.5">
+        <!-- My Progress Nav Link -->
+        <button id="navMyProgressBtn" type="button" class="nav-pill-link" title="My Progress & Grade">
+          <svg class="w-3.5 h-3.5 text-[#A78BFA] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>My Progress</span>
+        </button>
+      </nav>
+
+      <!-- Right Action Controls: Fully fitted inside oval container -->
+      <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+        
+        <!-- Google AI Studio Gemma Config Trigger -->
+        <button id="aiConfigBtn" type="button" class="nav-action-pill" title="Configure Google AI Studio Gemma API Key">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
+          <span class="hidden xl:inline">Gemma AI</span>
+          <span id="aiKeyIndicator" class="w-1.5 h-1.5 rounded-full bg-amber-400" title="Key status"></span>
+        </button>
+
+        <!-- Saved Bookmarks Drawer Trigger -->
+        <button id="savedIssuesBtn" type="button" class="nav-action-pill" title="Saved Issues">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+          </svg>
+          <span class="hidden xl:inline">Saved</span>
+          <span id="savedCountBadge" class="bg-[#6D45C5] text-[#F4F1FF] text-[9px] font-mono px-1.5 py-0.2 rounded-full font-bold">0</span>
+        </button>
+
+        <!-- Launch Journey CTA Button (Fitted cleanly inside oval navbar) -->
+        <a 
+          href="#journey-section" 
+          id="navStartJourneyBtn" 
+          class="px-3 sm:px-4 py-1.5 text-xs font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-full shadow-[0_0_14px_rgba(87,217,244,0.4)] transition-all transform hover:-translate-y-0.5 whitespace-nowrap shrink-0 flex items-center space-x-1 cursor-pointer"
+        >
+          <span>Launch Journey</span>
+          <svg class="w-3 h-3 text-[#080914] shrink-0 hidden sm:inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+
+        <!-- Mobile Hamburger Toggle Button (lg:hidden) -->
+        <button id="mobileMenuToggleBtn" type="button" class="lg:hidden p-1.5 sm:p-2 rounded-full bg-[#182040]/80 hover:bg-[#202b54] border border-[#57D9F4]/40 text-[#57D9F4] cursor-pointer shrink-0" title="Toggle Navigation Menu">
+          <svg id="hamburgerIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <svg id="closeMenuIcon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Glassmorphism Dropdown Menu -->
+    <div id="mobileNavDrawer" class="hidden pointer-events-auto max-w-sm w-full mx-auto mt-2 p-3.5 rounded-3xl bg-[#10152B]/95 border border-[#57D9F4]/40 shadow-galaxy-lg backdrop-blur-2xl flex flex-col space-y-1.5 transition-all">
+      <button id="mobileWarpBtn" type="button" class="mobile-nav-link text-left w-full cursor-pointer">
+        <svg class="w-4 h-4 text-[#57D9F4] mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+        <span>Warp Intro</span>
+      </button>
+      <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+      <a href="#journey-section" class="mobile-nav-link">Milestones</a>
+      <a href="#repos-preview" class="mobile-nav-link">Explore Issues</a>
+      <button id="mobileLeaderboardDrawerBtn" type="button" class="mobile-nav-link flex items-center justify-between w-full cursor-pointer">
+        <span class="flex items-center">
+          <svg class="w-4 h-4 text-[#57D9F4] mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          <span>Leaderboard</span>
+        </span>
+        <span class="text-[10px] font-mono text-[#57D9F4]">Ranked Telemetry</span>
+      </button>
+      <button id="mobileProgressDrawerBtn" type="button" class="mobile-nav-link flex items-center space-x-2 w-full cursor-pointer">
+        <svg class="w-4 h-4 text-[#A78BFA] mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>My Progress</span>
+      </button>
+      <div class="pt-1.5">
+        <a href="#journey-section" class="w-full flex items-center justify-center py-2 px-4 text-xs font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] rounded-full shadow-md">
           Launch Journey
         </a>
       </div>
-
     </div>
   </header>
 
@@ -165,15 +289,15 @@
       <!-- Quick stats pill -->
       <div class="flex items-center justify-center md:justify-start space-x-6 pt-4 text-xs font-mono text-[#B8B5D3]">
         <div class="flex items-center space-x-2">
-          <span class="text-base">✨</span>
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg>
           <span>100% Free & Live GitHub API</span>
         </div>
         <div class="flex items-center space-x-2">
-          <span class="text-base">🚀</span>
+          <svg class="w-4 h-4 text-[#57D9F4] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg>
           <span>6 Floating Space Stations</span>
         </div>
         <div class="flex items-center space-x-2">
-          <span class="text-base">🌟</span>
+          <svg class="w-4 h-4 text-[#A78BFA] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           <span>Zero Git Fear</span>
         </div>
       </div>
@@ -190,7 +314,7 @@
       <div class="floating-badge badge-js">JS</div>
       <div class="floating-badge badge-py">Python</div>
       <div class="floating-badge badge-react">React</div>
-      <div class="floating-badge badge-star">🌟 PR #1</div>
+      <div class="floating-badge badge-star"><svg class="w-3.5 h-3.5 text-[#FFD666] inline mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>PR #1</div>
 
       <!-- Main Illustrated 3D Rocket Character (Dark Galaxy Edition) -->
       <div class="rocket-hero-container animate-bob" id="heroRocketGraphic">
@@ -327,7 +451,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="1">
           <div class="milestone-planet planet-1 active">
             <span class="step-num font-mono font-bold text-xs">1</span>
-            <span class="rocket-pin" id="rocketPin1">🚀</span>
+            <span class="rocket-pin" id="rocketPin1"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#57D9F4] block mt-2 group-hover:text-[#F4F1FF]">Sign In</span>
         </button>
@@ -336,7 +460,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="2">
           <div class="milestone-planet planet-2">
             <span class="step-num font-mono font-bold text-xs">2</span>
-            <span class="rocket-pin hidden" id="rocketPin2">🚀</span>
+            <span class="rocket-pin hidden" id="rocketPin2"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Skills</span>
         </button>
@@ -345,7 +469,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="3">
           <div class="milestone-planet planet-3">
             <span class="step-num font-mono font-bold text-xs">3</span>
-            <span class="rocket-pin hidden" id="rocketPin3">🚀</span>
+            <span class="rocket-pin hidden" id="rocketPin3"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Rate Self</span>
         </button>
@@ -354,7 +478,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="4">
           <div class="milestone-planet planet-4">
             <span class="step-num font-mono font-bold text-xs">4</span>
-            <span class="rocket-pin hidden" id="rocketPin4">🚀</span>
+            <span class="rocket-pin hidden" id="rocketPin4"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Time</span>
         </button>
@@ -363,7 +487,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="5">
           <div class="milestone-planet planet-5">
             <span class="step-num font-mono font-bold text-xs">5</span>
-            <span class="rocket-pin hidden" id="rocketPin5">🚀</span>
+            <span class="rocket-pin hidden" id="rocketPin5"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Git Buddy</span>
         </button>
@@ -372,7 +496,7 @@
         <button type="button" class="milestone-station group cursor-pointer text-center" data-step="6">
           <div class="milestone-planet planet-6">
             <span class="step-num font-mono font-bold text-xs">6</span>
-            <span class="rocket-pin hidden" id="rocketPin6">🚀</span>
+            <span class="rocket-pin hidden" id="rocketPin6"><svg class="w-4 h-4 text-[#57D9F4] filter drop-shadow-[0_0_6px_rgba(87,217,244,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></span>
           </div>
           <span class="text-[11px] sm:text-xs font-display font-bold text-[#B8B5D3] block mt-2 group-hover:text-[#57D9F4]">Your Repos</span>
         </button>
@@ -401,7 +525,11 @@
           <!-- Small rocket landing illustration -->
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-[#6D45C5] to-[#57D9F4] p-[2px] shadow-cyan-glow">
             <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center text-2xl">
-              🪐
+              <svg class="w-8 h-8 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M3.5 13.5c4-5 13-5 17 0"></path>
+              <path d="M5 15c3.5 3 10.5 3 14 0"></path>
+            </svg>
             </div>
           </div>
 
@@ -442,7 +570,7 @@
                   <div class="flex items-center space-x-3 text-[11px] text-[#B8B5D3] mt-1 font-mono">
                     <span><strong id="previewRepos" class="text-[#F4F1FF]">0</strong> public repos</span>
                     <span>•</span>
-                    <a id="previewProfileLink" href="#" target="_blank" rel="noopener noreferrer" class="text-[#57D9F4] hover:underline font-bold">View GitHub Profile ↗</a>
+                    <a id="previewProfileLink" href="#" target="_blank" rel="noopener noreferrer" class="text-[#57D9F4] hover:underline font-bold"><span class="inline-flex items-center space-x-1"><span>View GitHub Profile</span><svg class="w-3 h-3 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span></a>
                   </div>
                 </div>
               </div>
@@ -464,14 +592,14 @@
                 id="step1SubmitBtn"
                 class="w-full py-3.5 px-6 font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all transform hover:-translate-y-0.5 cursor-pointer text-sm"
               >
-                Continue to Skills →
+                <span>Continue to Skills</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </button>
             </div>
           </form>
 
           <!-- Why profile is useful note -->
           <p class="text-xs text-[#B8B5D3]/80 leading-relaxed border-t border-[#A78BFA]/20 pt-4 max-w-sm mx-auto">
-            🔒 <strong>Public Lookup Only:</strong> We only fetch your public profile to celebrate your journey. We never ask for or store passwords or private tokens.
+            <svg class="w-3.5 h-3.5 text-[#57D9F4] inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2"/></svg><strong>Public Lookup Only:</strong> We only fetch your public profile to celebrate your journey. We never ask for or store passwords or private tokens.
           </p>
 
         </div>
@@ -496,7 +624,7 @@
             
             <!-- Skill 1: JavaScript -->
             <div class="skill-card selected" data-skill="javascript">
-              <span class="selection-check">✓</span>
+              <span class="selection-check"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
               <div class="skill-icon text-[#FFD666] border-[#FFD666]/40">JS</div>
               <span class="skill-name text-[#F4F1FF]">JavaScript</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Web & Node.js</span>
@@ -504,7 +632,7 @@
 
             <!-- Skill 2: TypeScript -->
             <div class="skill-card" data-skill="typescript">
-              <span class="selection-check hidden">✓</span>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
               <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">TS</div>
               <span class="skill-name text-[#F4F1FF]">TypeScript</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Type-safe JS</span>
@@ -512,7 +640,7 @@
 
             <!-- Skill 3: Python -->
             <div class="skill-card" data-skill="python">
-              <span class="selection-check hidden">✓</span>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
               <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">PY</div>
               <span class="skill-name text-[#F4F1FF]">Python</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Data & Backend</span>
@@ -520,7 +648,7 @@
 
             <!-- Skill 4: HTML and CSS -->
             <div class="skill-card" data-skill="html-css">
-              <span class="selection-check hidden">✓</span>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
               <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">&lt;&gt;</div>
               <span class="skill-name text-[#F4F1FF]">HTML & CSS</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Styling & UI</span>
@@ -528,23 +656,23 @@
 
             <!-- Skill 5: React -->
             <div class="skill-card" data-skill="react">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">⚛</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40"><svg class="w-5 h-5 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">React</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Component Web</span>
             </div>
 
             <!-- Skill 6: Java -->
             <div class="skill-card" data-skill="java">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40">☕</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">Java</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Enterprise & Android</span>
             </div>
 
             <!-- Skill 7: C++ -->
             <div class="skill-card" data-skill="cpp">
-              <span class="selection-check hidden">✓</span>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
               <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">C++</div>
               <span class="skill-name text-[#F4F1FF]">C++</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Systems & Games</span>
@@ -552,32 +680,32 @@
 
             <!-- Skill 8: Documentation -->
             <div class="skill-card" data-skill="docs">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">📖</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">Documentation</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Guides & Typos</span>
             </div>
 
             <!-- Skill 9: Testing -->
             <div class="skill-card" data-skill="testing">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40">🧪</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#A78BFA] border-[#A78BFA]/40"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 2v7.31L4.17 19.46A2 2 0 0 0 5.86 22h12.28a2 2 0 0 0 1.69-2.54L14 9.31V2M8.5 2h7M7 16h10"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">Testing</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">Unit & Integration</span>
             </div>
 
             <!-- Skill 10: Accessibility -->
             <div class="skill-card" data-skill="accessibility">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40">♿</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#57D9F4] border-[#57D9F4]/40"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="4" r="2"/><path d="M16 11a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM12 9v7l5 5M9 20l3-4"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">Accessibility</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">a11y & ARIA</span>
             </div>
 
             <!-- Skill 11: Design -->
             <div class="skill-card" data-skill="design">
-              <span class="selection-check hidden">✓</span>
-              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40">🎨</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="skill-icon text-[#FFB59E] border-[#FFB59E]/40"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
               <span class="skill-name text-[#F4F1FF]">Design</span>
               <span class="text-[10px] text-[#B8B5D3] font-mono mt-1">SVGs & Design Tokens</span>
             </div>
@@ -593,10 +721,10 @@
 
             <div class="flex items-center space-x-3 w-full sm:w-auto">
               <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
-                ← Back
+                <svg class="w-4 h-4 inline-block mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span>Back</span>
               </button>
               <button type="button" id="step2NextBtn" class="flex-1 sm:flex-initial px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
-                Continue to Confidence →
+                <span>Continue to Confidence</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </button>
             </div>
           </div>
@@ -650,7 +778,7 @@
             <!-- Dynamic Tier Card Description -->
             <div id="sliderTierCard" class="p-5 bg-[#10152B] border border-[#57D9F4]/40 rounded-2xl transition-all text-left">
               <div class="flex items-center space-x-3 mb-1.5">
-                <span id="tierEmoji" class="text-2xl">🌱</span>
+                <span id="tierEmoji" class="w-7 h-7 flex items-center justify-center text-[#57D9F4]"><svg class="w-6 h-6 text-[#57D9F4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></span>
                 <h4 id="tierTitle" class="text-base font-display font-bold text-[#F4F1FF]">Just getting started</h4>
               </div>
               <p id="tierDescription" class="text-xs sm:text-sm text-[#B8B5D3] leading-relaxed">
@@ -663,10 +791,10 @@
           <!-- Navigation controls -->
           <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
             <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
-              ← Back
+              <svg class="w-4 h-4 inline-block mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span>Back</span>
             </button>
             <button type="button" id="step3NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
-              Continue to Time →
+              <span>Continue to Time</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </div>
 
@@ -692,8 +820,8 @@
             
             <!-- 1 Hour -->
             <div class="time-card selected" data-hours="1">
-              <span class="selection-check">✓</span>
-              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4]">⚡</div>
+              <span class="selection-check"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4] flex items-center justify-center"><svg class="w-5 h-5 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg></div>
               <h4 class="time-hours text-[#F4F1FF]">1 Hour</h4>
               <p class="time-subtitle text-[#57D9F4]">MICRO-SPRINT</p>
               <p class="time-desc">
@@ -703,8 +831,8 @@
 
             <!-- 2 Hours -->
             <div class="time-card" data-hours="2">
-              <span class="selection-check hidden">✓</span>
-              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#A78BFA]">🛠️</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#A78BFA] flex items-center justify-center"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg></div>
               <h4 class="time-hours text-[#F4F1FF]">2 Hours</h4>
               <p class="time-subtitle text-[#A78BFA]">FOCUSED SESSION</p>
               <p class="time-desc">
@@ -714,8 +842,8 @@
 
             <!-- 3 Hours -->
             <div class="time-card" data-hours="3">
-              <span class="selection-check hidden">✓</span>
-              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4]">🚀</div>
+              <span class="selection-check hidden"><svg class="w-2.5 h-2.5 text-[#080914]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+              <div class="time-icon bg-[#6D45C5]/30 border border-[#A78BFA]/40 text-[#57D9F4] flex items-center justify-center"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 8.41m5.96 5.96a14.926 14.926 0 01-5.84 2.58m0 0a6 6 0 01-7.38-5.84h4.8m2.58 5.84l4.24-4.24"/></svg></div>
               <h4 class="time-hours text-[#F4F1FF]">3 Hours</h4>
               <p class="time-subtitle text-[#57D9F4]">DEEP DIVE</p>
               <p class="time-desc">
@@ -728,10 +856,10 @@
           <!-- Navigation controls -->
           <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
             <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
-              ← Back
+              <svg class="w-4 h-4 inline-block mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span>Back</span>
             </button>
             <button type="button" id="step4NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
-              Meet Git Buddy →
+              <span>Meet Git Buddy</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </div>
 
@@ -755,7 +883,7 @@
           <!-- Git Buddy Header Bar -->
           <div class="flex items-center justify-between p-4 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-2xl">
             <div class="flex items-center space-x-3">
-              <span class="text-2xl">🤖</span>
+              <svg class="w-7 h-7 text-[#57D9F4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               <div>
                 <h4 class="text-sm font-display font-bold text-[#F4F1FF]">Git Buddy Co-Pilot</h4>
                 <p class="text-xs text-[#B8B5D3]">Standard Pull Request Workflow</p>
@@ -856,10 +984,10 @@
           <!-- Navigation controls -->
           <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
             <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
-              ← Back
+              <svg class="w-4 h-4 inline-block mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span>Back</span>
             </button>
             <button type="button" id="step5NextBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all">
-              Discover Repositories →
+              <span>Discover Repositories</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </div>
 
@@ -878,6 +1006,32 @@
             <p class="text-sm text-[#B8B5D3] max-w-xl mx-auto" id="reposSubtitle">
               Real open-source opportunities fetched from GitHub matching your selected skills.
             </p>
+          </div>
+
+          <!-- Gemma AI Recommendation Flight Analysis Banner -->
+          <div id="gemmaIntelligenceBanner" class="p-4 sm:p-5 bg-gradient-to-r from-[#6D45C5]/25 via-[#182040]/90 to-[#10152B]/90 border border-[#57D9F4]/40 rounded-2xl shadow-galaxy-sm backdrop-blur-md space-y-2.5 transition-all">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#6D45C5]/40 border border-[#57D9F4]/50 flex items-center justify-center shadow-[0_0_12px_rgba(87,217,244,0.3)]"><svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg></div>
+                <div>
+                  <h4 class="text-xs font-display font-bold uppercase tracking-wider text-[#57D9F4] flex items-center gap-1.5">
+                    <span>Gemma AI Flight Recommendation</span>
+                    <span id="gemmaStatusPill" class="text-[9px] font-mono px-2 py-0.2 rounded-full bg-[#57D9F4]/20 text-[#57D9F4] border border-[#57D9F4]/40">AI Analyzing</span>
+                  </h4>
+                </div>
+              </div>
+              <button type="button" id="reanalyzeGemmaBtn" class="text-[11px] font-mono text-[#57D9F4] hover:text-[#F4F1FF] bg-[#182040] hover:bg-[#202b54] px-2.5 py-1 rounded-lg border border-[#57D9F4]/30 transition-all flex items-center space-x-1 cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Refresh AI Strategy</span>
+              </button>
+            </div>
+            <p id="gemmaAnalysisText" class="text-xs text-[#F4F1FF] leading-relaxed">
+              Evaluating your skills, confidence level, and time commitment to formulate optimal repository recommendations...
+            </p>
+            <div id="gemmaTagsContainer" class="flex items-center gap-1.5 flex-wrap pt-1 text-[10px] font-mono">
+              <span class="px-2 py-0.5 rounded-full bg-[#182040] text-[#57D9F4] border border-[#57D9F4]/30"><svg class="w-3 h-3 text-[#57D9F4] inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="6" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>Skill Matching</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#182040] text-[#A78BFA] border border-[#A78BFA]/30"><svg class="w-3 h-3 text-[#A78BFA] inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>Time Budget</span>
+              <span class="px-2 py-0.5 rounded-full bg-[#182040] text-[#B8B5D3] border border-[#B8B5D3]/30"><svg class="w-3 h-3 text-[#B8B5D3] inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Experience Calibrated</span>
+            </div>
           </div>
 
           <!-- Search & Filter Controls Toolbar -->
@@ -899,6 +1053,7 @@
             <!-- Sort Dropdown & Refresh -->
             <div class="flex items-center space-x-2">
               <select id="sortIssuesSelect" class="bg-[#080914] border border-[#A78BFA]/30 text-[#F4F1FF] text-xs py-2 px-3 rounded-xl outline-none font-medium">
+                <option value="doability">Doability Score (Highest First)</option>
                 <option value="recent">Most Recently Updated</option>
                 <option value="least-comments">Fewest Comments (Unclaimed)</option>
                 <option value="most-comments">Most Active</option>
@@ -914,10 +1069,56 @@
           <!-- Rate Limit Notice (graceful fallback) -->
           <div id="apiNoticeBanner" class="hidden p-3.5 bg-[#182040] border border-[#A78BFA] rounded-2xl text-xs text-[#F4F1FF] flex items-center justify-between shadow-sm">
             <div class="flex items-center space-x-2">
-              <span>⚠️</span>
+              <span><svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
               <span id="apiNoticeText">GitHub API rate limit reached for unauthenticated requests. Showing verified open-source tickets!</span>
             </div>
             <span class="font-mono text-[10px] font-bold text-[#57D9F4] bg-[#080914] px-2 py-0.5 rounded border border-[#57D9F4]">Verified Fallback</span>
+          </div>
+
+          <!-- Suggested Flightpath Strip -->
+          <div id="suggestedPathStrip" class="p-3.5 sm:p-4 bg-gradient-to-r from-[#182040]/90 via-[#10152B]/90 to-[#182040]/90 border border-[#A78BFA]/30 rounded-2xl shadow-galaxy-sm backdrop-blur-md flex flex-col md:flex-row items-start md:items-center justify-between gap-3 transition-all">
+            <div class="flex items-center flex-wrap gap-2.5">
+              <button type="button" id="startHereBtn" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-[#080914] text-xs font-display font-extrabold flex items-center space-x-1.5 shadow-[0_0_12px_rgba(56,239,125,0.4)] hover:brightness-110 transition-all cursor-pointer" title="Jump to first starter ticket">
+                <span>Start here</span>
+                <svg class="w-3.5 h-3.5 text-[#080914] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="7" x2="17" y2="17"></line>
+                  <polyline points="17 7 17 17 7 17"></polyline>
+                </svg>
+              </button>
+              <div class="flex items-center space-x-2 text-xs font-mono">
+                <span class="text-emerald-400 font-bold flex items-center space-x-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Warm-up</span>
+                </span>
+                <svg class="w-3.5 h-3.5 text-[#B8B5D3]/50 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                <span class="text-amber-400 font-bold flex items-center space-x-1">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span>Level up</span>
+                </span>
+                <svg class="w-3.5 h-3.5 text-[#B8B5D3]/50 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                <span class="text-rose-400 font-bold flex items-center space-x-1">
+                  <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                  <span>Boss level</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- View Switcher Tabs -->
+            <div class="flex items-center space-x-1 bg-[#080914] p-1 rounded-xl border border-[#A78BFA]/30 self-stretch md:self-auto justify-center">
+              <button type="button" id="viewModePathBtn" class="view-mode-btn active px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all bg-gradient-to-r from-[#6D45C5] to-[#57D9F4] text-[#080914] flex items-center space-x-1.5 cursor-pointer">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+                <span>Path View</span>
+              </button>
+              <button type="button" id="viewModeGalaxyBtn" class="view-mode-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all text-[#B8B5D3] hover:text-[#57D9F4] flex items-center space-x-1.5 cursor-pointer">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle>
+                </svg>
+                <span>Galaxy View</span>
+              </button>
+            </div>
           </div>
 
           <!-- Loading State -->
@@ -931,14 +1132,54 @@
             </div>
           </div>
 
-          <!-- Live Issues Grid (Completely Stable) -->
-          <div id="issuesContainer" class="hidden grid grid-cols-1 gap-4">
-            <!-- Dynamically populated issue cards -->
+          <!-- Path View: Grouped by Difficulty with Progress Connector Path -->
+          <div id="issuesContainer" class="hidden space-y-10">
+            <!-- Dynamically populated with Warm-up (Easy), Level up (Medium), Boss level (Challenging) -->
+          </div>
+
+          <!-- Galaxy View: Orbits arranged Easy (inner), Medium (middle), Challenging (outer) -->
+          <div id="galaxyOrbitView" class="hidden relative w-full rounded-3xl bg-gradient-to-b from-[#080914] via-[#0E1428] to-[#080914] border border-[#A78BFA]/30 overflow-hidden shadow-galaxy p-4 sm:p-6 backdrop-blur-md">
+            
+            <!-- Small Legend in top-left corner -->
+            <div class="absolute top-4 left-4 z-20 p-3 bg-[#10152B]/95 border border-[#A78BFA]/30 rounded-2xl backdrop-blur-md space-y-1.5 text-xs font-mono shadow-lg pointer-events-auto">
+              <div class="text-[11px] font-bold text-[#F4F1FF] flex items-center space-x-1.5 mb-1 border-b border-[#A78BFA]/20 pb-1">
+                <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <span>Orbital Legend</span>
+              </div>
+              <div class="flex items-center space-x-2 text-emerald-400">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(56,239,125,0.8)]"></span>
+                <span class="text-[10px] font-bold">Inner Orbit: Warm-up (Easy)</span>
+              </div>
+              <div class="flex items-center space-x-2 text-amber-400">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]"></span>
+                <span class="text-[10px] font-bold">Middle Orbit: Level up (Medium)</span>
+              </div>
+              <div class="flex items-center space-x-2 text-rose-400">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(248,113,113,0.8)]"></span>
+                <span class="text-[10px] font-bold">Outer Orbit: Boss level (Challenging)</span>
+              </div>
+            </div>
+
+            <!-- Orbit Hint Top Right -->
+            <div class="absolute top-4 right-4 z-20 hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[#10152B]/90 border border-[#57D9F4]/30 text-[11px] font-mono text-[#57D9F4]">
+              <svg class="w-3.5 h-3.5 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>Click planet to inspect issue</span>
+            </div>
+
+            <!-- SVG Orbital Map Container -->
+            <div id="galaxyOrbitCanvasContainer" class="w-full flex items-center justify-center py-4">
+              <!-- Dynamically rendered SVG with orbital rings, central core, and planet nodes -->
+            </div>
+
+            <!-- Selected Planet Inspector Card -->
+            <div id="galaxyPlanetInspector" class="mt-4 p-4 bg-[#10152B]/95 border border-[#57D9F4]/40 rounded-2xl shadow-galaxy transition-all">
+              <!-- Dynamically populated with active planet card -->
+            </div>
           </div>
 
           <!-- Empty State -->
           <div id="issuesEmptyState" class="hidden text-center py-10 bg-[#182040]/70 border border-[#A78BFA]/25 rounded-2xl">
-            <div class="text-3xl mb-2">🔍</div>
+            <svg class="w-10 h-10 text-[#57D9F4]/70 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
             <h4 class="text-base font-display font-bold text-[#F4F1FF]">No matching issues found</h4>
             <p class="text-xs text-[#B8B5D3] mt-1 mb-4">Try clearing your keyword filter or pick additional skills.</p>
             <button id="clearFilterBtn" class="px-4 py-1.5 text-xs font-mono font-bold text-[#080914] bg-[#57D9F4] hover:bg-[#7ce2f7] rounded-xl shadow-sm">
@@ -953,7 +1194,7 @@
 
           <!-- Final Encouraging Message -->
           <div class="text-center py-6 space-y-2">
-            <div class="text-3xl animate-bounce">🌟</div>
+            <svg class="w-10 h-10 text-[#57D9F4] mx-auto animate-bounce" fill="currentColor" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
             <h4 class="text-xl font-display font-extrabold text-[#F4F1FF]">
               "Your first contribution starts with one small step."
             </h4>
@@ -963,10 +1204,10 @@
           <!-- Navigation controls -->
           <div class="flex items-center justify-between pt-4 border-t border-[#A78BFA]/20">
             <button type="button" class="prev-step-btn px-6 py-2.5 text-sm font-display font-bold text-[#F4F1FF] hover:bg-[#182040] border border-[#A78BFA]/30 rounded-2xl transition-all">
-              ← Back to Git Buddy
+              <svg class="w-4 h-4 inline-block mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg><span>Back</span> to Git Buddy
             </button>
             <button type="button" id="celebrateBtn" class="px-7 py-2.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all flex items-center space-x-1.5 cursor-pointer">
-              <span>🎉 Celebrate Landing</span>
+              <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg> <span>Celebrate Landing</span>
             </button>
           </div>
 
@@ -993,7 +1234,7 @@
       <!-- Card 1 -->
       <div class="p-6 bg-[#10152B]/80 border-2 border-[#57D9F4]/40 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
         <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#57D9F4]/50 flex items-center justify-center text-2xl">
-          🎯
+          <svg class="w-6 h-6 text-[#57D9F4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="6" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>
         </div>
         <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Curated Skill Alignment</h4>
         <p class="text-xs text-[#B8B5D3] leading-relaxed">
@@ -1004,7 +1245,7 @@
       <!-- Card 2 -->
       <div class="p-6 bg-[#10152B]/80 border-2 border-[#A78BFA]/40 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
         <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#A78BFA]/50 flex items-center justify-center text-2xl">
-          ⏳
+          <svg class="w-6 h-6 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>
         </div>
         <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Realistic Session Sizing</h4>
         <p class="text-xs text-[#B8B5D3] leading-relaxed">
@@ -1015,7 +1256,7 @@
       <!-- Card 3 -->
       <div class="p-6 bg-[#10152B]/80 border-2 border-[#6D45C5]/60 rounded-3xl shadow-galaxy-sm space-y-3 backdrop-blur-md">
         <div class="w-12 h-12 rounded-2xl bg-[#182040] border border-[#6D45C5] flex items-center justify-center text-2xl">
-          🤝
+          <svg class="w-6 h-6 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
         </div>
         <h4 class="text-lg font-display font-bold text-[#F4F1FF]">Warm Welcoming Repos</h4>
         <p class="text-xs text-[#B8B5D3] leading-relaxed">
@@ -1039,7 +1280,7 @@
         </p>
       </div>
       <a href="#journey-section" class="px-7 py-3.5 text-sm font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-2xl shadow-cyan-glow transition-all transform hover:-translate-y-0.5 whitespace-nowrap">
-        Start Rocket Journey →
+        <span>Start Rocket Journey</span><svg class="w-4 h-4 inline-block ml-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
     </div>
   </section>
@@ -1057,7 +1298,7 @@
       <div class="flex items-center space-x-4">
         <span>Powered by GitHub REST API</span>
         <span>•</span>
-        <a href="#hero" class="hover:text-[#57D9F4] font-bold">Back to Top ↑</a>
+        <a href="#hero" class="hover:text-[#57D9F4] font-bold"><span>Back to Top</span><svg class="w-3.5 h-3.5 inline-block ml-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></a>
       </div>
     </div>
   </footer>
@@ -1089,10 +1330,773 @@
     </div>
   </div>
 
+    <!-- ========================================================================= -->
+  <!-- MODAL: GOOGLE AI STUDIO GEMMA CONFIG                                      -->
+  <!-- ========================================================================= -->
+  <div id="aiConfigModal" class="fixed inset-0 z-50 hidden bg-[#080914]/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-[#10152B] border-2 border-[#57D9F4]/40 rounded-3xl max-w-md w-full p-6 shadow-galaxy-lg flex flex-col space-y-4">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-[#A78BFA]/20">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6D45C5] to-[#57D9F4] flex items-center justify-center text-lg shadow-[0_0_15px_rgba(87,217,244,0.35)]">
+            <svg class="w-4 h-4 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-display font-bold text-[#F4F1FF]">Google AI Studio Gemma</h4>
+            <p class="text-[10px] text-[#B8B5D3]">Repo Recommendations & Browser Voice Co-Pilot</p>
+          </div>
+        </div>
+        <button id="closeAiModalBtn" type="button" class="text-[#B8B5D3] hover:text-[#F4F1FF] p-1 rounded-lg cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Current Status Card -->
+      <div class="p-3 bg-[#182040]/80 border border-[#A78BFA]/30 rounded-2xl flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span id="aiModalStatusDot" class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          <span id="aiModalStatusText" class="text-xs font-mono text-[#F4F1FF]">Detecting API Key...</span>
+        </div>
+        <span class="text-[10px] font-mono text-[#57D9F4] bg-[#080914] px-2 py-0.5 rounded border border-[#57D9F4]/40">Gemma 2</span>
+      </div>
+
+      <!-- API Key Input -->
+      <div class="space-y-1.5">
+        <label for="aiKeyInput" class="text-xs font-display font-semibold text-[#F4F1FF] flex items-center justify-between">
+          <span>Google AI Studio API Key</span>
+          <span class="text-[10px] font-mono text-[#57D9F4]">.env or LocalStorage</span>
+        </label>
+        <div class="relative">
+          <input 
+            type="password" 
+            id="aiKeyInput" 
+            placeholder="AIzaSy..." 
+            class="w-full px-3.5 py-2.5 bg-[#080914] border border-[#A78BFA]/35 focus:border-[#57D9F4] rounded-xl text-xs text-[#F4F1FF] placeholder-[#B8B5D3]/40 outline-none font-mono"
+          />
+          <button id="toggleAiKeyVisibility" type="button" class="absolute right-3 top-2.5 text-[#B8B5D3] hover:text-[#57D9F4] cursor-pointer" title="Toggle key visibility"><svg class="w-4 h-4 text-[#B8B5D3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+        </div>
+        <p class="text-[10px] text-[#B8B5D3] leading-relaxed">
+          Keys in <code class="text-[#57D9F4]">.env</code> are auto-loaded and git-ignored. Alternatively, enter your key here to save in your browser.
+        </p>
+      </div>
+
+      <!-- Voice Module Settings -->
+      <div class="p-3 bg-[#080914]/60 border border-[#A78BFA]/20 rounded-xl space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-[#F4F1FF] font-medium flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/></svg> <span>Browser Voice Synthesis (Web Speech API)</span>
+          </span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="voiceAutoSpeakToggle" checked class="sr-only peer" />
+            <div class="w-9 h-5 bg-[#182040] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#57D9F4]"></div>
+          </label>
+        </div>
+        <p class="text-[10px] text-[#B8B5D3]">
+          When active, Commander Astro speaks aloud on milestone updates or when "Speak" is pressed.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pt-2 border-t border-[#A78BFA]/20 flex items-center justify-between gap-2">
+        <button id="testAiKeyBtn" type="button" class="px-3.5 py-2 text-xs font-mono font-bold text-[#57D9F4] bg-[#182040] hover:bg-[#202b54] border border-[#57D9F4]/40 rounded-xl transition-all cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg><span>Test Gemma</span>
+        </button>
+        <div class="flex items-center space-x-2">
+          <button id="clearAiKeyBtn" type="button" class="px-3 py-2 text-xs text-[#B8B5D3] hover:text-red-400 transition-colors cursor-pointer">Clear</button>
+          <button id="saveAiKeyBtn" type="button" class="px-4 py-2 text-xs font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] rounded-xl shadow-cyan-glow cursor-pointer hover:opacity-95">
+            Save Key
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
-  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+  <div id="toastContainer" class="fixed top-20 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+
+  <!-- ========================================================================= -->
+  <!-- DOCKED QUEST TRACKER MINI-HUD (Fixed Bottom-Left Viewport)                 -->
+  <!-- ========================================================================= -->
+  <div id="dockedQuestTracker" class="fixed bottom-5 left-5 z-40 hidden flex items-center gap-3 p-3 bg-[#10152B]/95 border-2 border-[#57D9F4]/50 rounded-2xl shadow-galaxy-lg backdrop-blur-xl transition-all">
+    <div class="w-10 h-10 rounded-xl bg-[#182040] border border-[#57D9F4]/40 flex items-center justify-center shrink-0">
+      <svg class="w-5 h-5 text-[#57D9F4] animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12,6 16,16 12,13 8,16" fill="currentColor"/></svg>
+    </div>
+    <div class="min-w-0 pr-1">
+      <div class="flex items-center space-x-2">
+        <span id="dockedQuestStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span id="dockedQuestRepo" class="text-xs font-mono font-bold text-[#57D9F4] truncate max-w-[130px]">repo/name</span>
+        <span id="dockedQuestGradeBadge" class="grade-badge-sm grade-badge-glow grade-d text-[9px] font-mono font-bold">D</span>
+      </div>
+      <div class="flex items-center space-x-2 text-xs">
+        <span id="dockedQuestTimer" class="font-mono font-bold text-[#F4F1FF]">00:00</span>
+        <span class="text-[#B8B5D3] text-[10px]">•</span>
+        <span id="dockedQuestPoints" class="text-[10px] font-mono text-[#57D9F4]">+0 pts</span>
+      </div>
+    </div>
+    <button id="dockedOpenQuestBtn" type="button" class="px-3 py-1.5 text-xs font-display font-bold text-[#080914] bg-gradient-to-r from-[#57D9F4] to-[#A78BFA] rounded-xl hover:opacity-95 shadow-sm cursor-pointer shrink-0">
+      Resume
+    </button>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. QUEST TRACKER MODAL                                                    -->
+  <!-- ========================================================================= -->
+  <div id="questTrackerModal" class="fixed inset-0 z-50 hidden bg-[#080914]/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-[#10152B] border-2 border-[#57D9F4]/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-galaxy-lg flex flex-col space-y-6 max-h-[92vh] overflow-y-auto relative">
+      
+      <!-- Modal Top Bar -->
+      <div class="flex items-start justify-between pb-4 border-b border-[#A78BFA]/20">
+        <div class="space-y-1">
+          <div class="flex items-center space-x-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#6D45C5]/40 text-[#57D9F4] border border-[#57D9F4]/40 uppercase tracking-wider flex items-center gap-1">
+              <svg class="w-3 h-3 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12,6 16,16 12,13 8,16" fill="currentColor"/></svg>
+              <span>FirstPR Mission Tracker</span>
+            </span>
+            <span id="questDifficultyBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+              Easy x1.0
+            </span>
+          </div>
+          <h3 id="questModalTitle" class="text-xl font-display font-bold text-[#F4F1FF] hover:text-[#57D9F4] transition-colors leading-snug">
+            Quest Mission Title
+          </h3>
+          <p id="questModalRepo" class="text-xs font-mono text-[#57D9F4] flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            <span>owner/repo</span>
+          </p>
+        </div>
+        <button id="closeQuestModalBtn" type="button" class="text-[#B8B5D3] hover:text-[#F4F1FF] p-2 rounded-xl bg-[#182040]/60 hover:bg-[#182040] transition-colors cursor-pointer" title="Minimize / Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Live Timer & Points Header Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Live Timer Card -->
+        <div class="p-4 rounded-2xl bg-[#182040]/70 border border-[#57D9F4]/30 space-y-3">
+          <div class="flex items-center justify-between text-xs text-[#B8B5D3]">
+            <span class="flex items-center space-x-1.5 font-mono">
+              <span id="timerStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span id="timerStatusLabel" class="text-[#57D9F4] font-bold">MISSION ACTIVE</span>
+            </span>
+            <span id="questTimePointsLabel" class="text-[11px] font-mono text-[#FCD34D]">+0 Time Pts</span>
+          </div>
+
+          <div class="text-center py-1">
+            <div id="questLiveTimerDisplay" class="text-4xl font-mono font-extrabold text-[#F4F1FF] tracking-wider mission-timer-display">
+              00:00:00
+            </div>
+            <p class="text-[10px] font-mono text-[#B8B5D3]/70 mt-1">+1 pt every 10 active mins (max 30 pts)</p>
+          </div>
+
+          <div class="flex items-center justify-center gap-2 pt-1">
+            <button id="questTimerStartBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 hover:bg-emerald-500/30 transition-all flex items-center space-x-1 cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Start</span>
+            </button>
+            <button id="questTimerPauseBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 hover:bg-amber-500/30 transition-all flex items-center space-x-1 cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              <span>Pause</span>
+            </button>
+            <button id="questTimerStopBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/50 hover:bg-rose-500/30 transition-all flex items-center space-x-1 cursor-pointer">
+              <svg class="w-3.5 h-3.5 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+              <span>Conclude</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quest Points & Grade Card -->
+        <div class="p-4 rounded-2xl bg-[#182040]/70 border border-[#A78BFA]/30 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs text-[#B8B5D3]">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-[#A78BFA]">Quest Score & Grade</span>
+            <span id="questMultiplierPill" class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#10152B] text-[#57D9F4] border border-[#57D9F4]/30">Multiplier: x1.0</span>
+          </div>
+
+          <div class="flex items-center justify-around py-2">
+            <!-- Score Counter -->
+            <div class="text-center">
+              <div id="questTotalScoreDisplay" class="text-4xl font-display font-extrabold text-[#F4F1FF] tracking-tight">
+                0
+              </div>
+              <p class="text-[10px] font-mono text-[#B8B5D3]">Contribution Points</p>
+            </div>
+
+            <!-- Grade Badge -->
+            <div class="flex flex-col items-center">
+              <div id="questGradeBadge" class="grade-badge-lg grade-badge-glow grade-d shadow-[0_0_20px_rgba(249,115,22,0.6)]">
+                D
+              </div>
+              <span id="questGradeLabel" class="text-[10px] font-mono text-[#B8B5D3] mt-1">Grade D (0-49)</span>
+            </div>
+          </div>
+
+          <div class="text-[10px] font-mono text-[#B8B5D3] flex items-center justify-between pt-2 border-t border-[#A78BFA]/20">
+            <span>Milestones: <strong id="questMilestonePts" class="text-[#57D9F4]">0</strong> pts</span>
+            <span>+ Time: <strong id="questTimePts" class="text-[#FCD34D]">0</strong> pts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestones Checklist (6 Steps) -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-sm font-display font-bold text-[#F4F1FF] flex items-center space-x-2">
+            <svg class="w-4 h-4 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span>Mission Milestones</span>
+          </h4>
+          <span id="questMilestonesRatio" class="text-xs font-mono text-[#57D9F4]">0 / 6 Completed</span>
+        </div>
+
+        <div class="space-y-2.5">
+          <!-- 1. Forked -->
+          <label class="milestone-item flex items-center justify-between p-3 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 cursor-pointer">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="msForked" class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40" />
+              <div>
+                <p class="text-xs font-semibold text-[#F4F1FF]">1. Forked repository</p>
+                <p class="text-[10px] text-[#B8B5D3]">Created your personal fork on GitHub</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#57D9F4] bg-[#10152B] px-2 py-0.5 rounded border border-[#57D9F4]/30">+10 pts</span>
+          </label>
+
+          <!-- 2. Cloned -->
+          <label class="milestone-item flex items-center justify-between p-3 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 cursor-pointer">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="msCloned" class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40" />
+              <div>
+                <p class="text-xs font-semibold text-[#F4F1FF]">2. Cloned repository</p>
+                <p class="text-[10px] text-[#B8B5D3]">Cloned your fork locally to your machine</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#57D9F4] bg-[#10152B] px-2 py-0.5 rounded border border-[#57D9F4]/30">+10 pts</span>
+          </label>
+
+          <!-- 3. Branch created -->
+          <label class="milestone-item flex items-center justify-between p-3 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 cursor-pointer">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="msBranch" class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40" />
+              <div>
+                <p class="text-xs font-semibold text-[#F4F1FF]">3. Branch created</p>
+                <p class="text-[10px] text-[#B8B5D3]">Created a clean feature/fix branch (e.g., git checkout -b fix-xyz)</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#57D9F4] bg-[#10152B] px-2 py-0.5 rounded border border-[#57D9F4]/30">+10 pts</span>
+          </label>
+
+          <!-- 4. Commit made -->
+          <label class="milestone-item flex items-center justify-between p-3 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 cursor-pointer">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="msCommit" class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40" />
+              <div>
+                <p class="text-xs font-semibold text-[#F4F1FF]">4. Commit made</p>
+                <p class="text-[10px] text-[#B8B5D3]">Committed changes with clear message and tests</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#57D9F4] bg-[#10152B] px-2 py-0.5 rounded border border-[#57D9F4]/30">+20 pts</span>
+          </label>
+
+          <!-- 5. Pull request opened (GitHub API Verified) -->
+          <div class="milestone-item p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" id="msPrOpened" disabled class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40 cursor-not-allowed" />
+                <div>
+                  <div class="flex items-center space-x-1.5">
+                    <p class="text-xs font-semibold text-[#F4F1FF]">5. Pull request opened</p>
+                    <span id="prOpenedVerifiedBadge" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">Verification Required</span>
+                  </div>
+                  <p class="text-[10px] text-[#B8B5D3]">Verified via Public GitHub API against your username</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-[#A78BFA] bg-[#10152B] px-2 py-0.5 rounded border border-[#A78BFA]/30">+50 pts</span>
+            </div>
+
+            <!-- PR Input & Verification -->
+            <div class="flex items-center gap-2 pt-1">
+              <input 
+                type="url" 
+                id="prOpenedUrlInput" 
+                placeholder="https://github.com/owner/repo/pull/123" 
+                class="flex-1 bg-[#10152B] border border-[#A78BFA]/30 rounded-xl px-3 py-1.5 text-xs text-[#F4F1FF] font-mono focus:outline-none focus:border-[#57D9F4]"
+              />
+              <button 
+                type="button" 
+                id="verifyPrOpenedBtn" 
+                class="px-3.5 py-1.5 text-xs font-mono font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-xl transition-all cursor-pointer shrink-0 shadow-sm"
+              >
+                Verify PR
+              </button>
+            </div>
+            <p id="prOpenedFeedback" class="text-[11px] font-mono hidden"></p>
+          </div>
+
+          <!-- 6. Pull request merged (GitHub API Verified) -->
+          <div class="milestone-item p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" id="msPrMerged" disabled class="w-4 h-4 rounded text-[#57D9F4] focus:ring-0 bg-[#10152B] border-[#57D9F4]/40 cursor-not-allowed" />
+                <div>
+                  <div class="flex items-center space-x-1.5">
+                    <p class="text-xs font-semibold text-[#F4F1FF]">6. Pull request merged</p>
+                    <span id="prMergedVerifiedBadge" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">Verification Required</span>
+                  </div>
+                  <p class="text-[10px] text-[#B8B5D3]">Verified via Public GitHub API (PR status must be merged)</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-[#FCD34D] bg-[#10152B] px-2 py-0.5 rounded border border-[#FCD34D]/40">+100 pts</span>
+            </div>
+
+            <!-- PR Merge Verification Button -->
+            <div class="flex items-center gap-2 pt-1">
+              <input 
+                type="url" 
+                id="prMergedUrlInput" 
+                placeholder="https://github.com/owner/repo/pull/123" 
+                class="flex-1 bg-[#10152B] border border-[#A78BFA]/30 rounded-xl px-3 py-1.5 text-xs text-[#F4F1FF] font-mono focus:outline-none focus:border-[#57D9F4]"
+              />
+              <button 
+                type="button" 
+                id="verifyPrMergedBtn" 
+                class="px-3.5 py-1.5 text-xs font-mono font-bold text-[#080914] bg-gradient-to-r from-[#FCD34D] to-[#57D9F4] hover:opacity-95 rounded-xl transition-all cursor-pointer shrink-0 shadow-sm"
+              >
+                Verify Merge
+              </button>
+            </div>
+            <p id="prMergedFeedback" class="text-[11px] font-mono hidden"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mascot Encouragement Note in Quest -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-[#6D45C5]/20 via-[#182040] to-[#57D9F4]/15 border border-[#57D9F4]/30 flex items-center space-x-3">
+        <svg class="w-6 h-6 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1V21a1 1 0 0 0 1 1h5.6a1 1 0 0 0 1-1v-1.9c3.1-1.4 5.2-4.5 5.2-8.1a9 9 0 0 0-9-9z"/><rect x="7" y="9" width="10" height="5.5" rx="2.5" fill="#57D9F4" fill-opacity="0.3"/></svg>
+        <p id="questBuddyEncouragement" class="text-xs text-[#F4F1FF]">
+          Cadet, step by step! Fork first, create a clean branch, make your commit, and you will land this quest with high honors!
+        </p>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-3 border-t border-[#A78BFA]/20 flex items-center justify-between">
+        <a id="questInspectGithubLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-[#57D9F4] hover:underline flex items-center space-x-1">
+          <span>Open Issue on GitHub</span>
+          <svg class="w-3.5 h-3.5 text-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        <div class="flex items-center space-x-2">
+          <button id="minimizeQuestModalBtn" type="button" class="px-4 py-2 text-xs font-mono font-semibold text-[#B8B5D3] bg-[#182040] hover:text-[#F4F1FF] rounded-xl border border-[#A78BFA]/30 cursor-pointer">
+            Minimize to HUD
+          </button>
+          <button id="saveQuestModalBtn" type="button" class="px-5 py-2 text-xs font-display font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-xl shadow-md cursor-pointer">
+            Save Progress
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MY PROGRESS & GRADING MODAL                                            -->
+  <!-- ========================================================================= -->
+  <div id="myProgressModal" class="fixed inset-0 z-50 hidden bg-[#080914]/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-[#10152B] border-2 border-[#A78BFA]/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-galaxy-lg flex flex-col space-y-6 max-h-[92vh] overflow-y-auto relative">
+      
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between pb-4 border-b border-[#A78BFA]/20">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#6D45C5] to-[#57D9F4] p-[1.5px] shadow-[0_0_15px_rgba(87,217,244,0.3)]">
+            <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-display font-bold text-[#F4F1FF]">My Flightpath & Grade</h3>
+            <p class="text-xs text-[#B8B5D3]">Contribution Points, Milestones, and Galactic Standing</p>
+          </div>
+        </div>
+        <button id="closeMyProgressModalBtn" type="button" class="text-[#B8B5D3] hover:text-[#F4F1FF] p-2 rounded-xl bg-[#182040]/60 hover:bg-[#182040] transition-colors cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Main Profile & Overall Grade Card -->
+      <div class="p-5 rounded-3xl bg-gradient-to-r from-[#182040]/90 via-[#10152B] to-[#182040]/90 border border-[#57D9F4]/40 shadow-galaxy-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center space-x-4">
+          <img id="progressUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" class="w-16 h-16 rounded-2xl border-2 border-[#57D9F4]/60 object-cover shadow-[0_0_15px_rgba(87,217,244,0.3)]" alt="Astronaut Avatar" />
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <h4 id="progressUsername" class="text-lg font-display font-bold text-[#F4F1FF]">cadet_explorer</h4>
+              <span id="progressRankBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#6D45C5]/40 text-[#57D9F4] border border-[#57D9F4]/40 font-bold">Unranked</span>
+            </div>
+            <p id="progressUserRole" class="text-xs font-mono text-[#B8B5D3]">Open Source Flight Cadet</p>
+            <div class="flex items-center space-x-2 text-[11px] font-mono text-[#57D9F4]">
+              <span id="progressStreakText" class="flex items-center space-x-1">
+                <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c6.075 0 11-4.925 11-11 0-4.667-2.667-8.333-5-10-1 2-2 3.5-3.5 4.5-1.5-3-3-5.5-3-5.5S9 3.5 6.5 6C4 8.5 1 12 1 12c0 6.075 4.925 11 11 11z"/></svg>
+                <span>1-Day Streak (+5 pts/day)</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade Badge & Animated Score -->
+        <div class="flex items-center space-x-5">
+          <div class="text-right">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-[#A78BFA]">Total Score</span>
+            <div id="progressTotalScoreDisplay" class="text-4xl font-display font-extrabold text-[#F4F1FF] tracking-tight">
+              0
+            </div>
+            <span class="text-[10px] font-mono text-[#B8B5D3]">Points Earned</span>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <div id="progressOverallGradeBadge" class="grade-badge-xl grade-badge-glow grade-d shadow-[0_0_25px_rgba(249,115,22,0.7)]">
+              D
+            </div>
+            <span id="progressGradeLabel" class="text-[10px] font-mono text-[#B8B5D3] mt-1">Grade D</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated Progress Bar toward Next Grade -->
+      <div class="p-4 rounded-2xl bg-[#182040]/50 border border-[#A78BFA]/20 space-y-2.5">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="text-[#F4F1FF] flex items-center space-x-1">
+            <svg class="w-3.5 h-3.5 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span id="nextGradeTargetLabel">Progress to Grade C</span>
+          </span>
+          <span id="nextGradePointsRemaining" class="text-[#57D9F4] font-bold">50 pts needed</span>
+        </div>
+
+        <div class="w-full bg-[#10152B] h-3.5 rounded-full p-0.5 border border-[#57D9F4]/30 overflow-hidden">
+          <div id="nextGradeProgressBar" class="h-full rounded-full bg-gradient-to-r from-[#A78BFA] via-[#57D9F4] to-[#FCD34D] progress-shimmer transition-all duration-700" style="width: 0%"></div>
+        </div>
+
+        <div class="flex items-center justify-between text-[10px] font-mono text-[#B8B5D3]">
+          <span>Grade D (0)</span>
+          <span>Grade C (50)</span>
+          <span>Grade B (100)</span>
+          <span>Grade A (200)</span>
+          <span>Grade S (400+)</span>
+        </div>
+      </div>
+
+      <!-- 6 Metrics Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">Quests Completed</p>
+          <p id="statQuestsCompleted" class="text-2xl font-display font-bold text-[#57D9F4] mt-1">0</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">PRs Opened</p>
+          <p id="statPrsOpened" class="text-2xl font-display font-bold text-[#A78BFA] mt-1">0</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">PRs Merged</p>
+          <p id="statPrsMerged" class="text-2xl font-display font-bold text-[#FCD34D] mt-1">0</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">Total Active Hours</p>
+          <p id="statTotalHours" class="text-2xl font-display font-bold text-[#F4F1FF] mt-1">0.0h</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">Daily Streak</p>
+          <p id="statDailyStreak" class="text-2xl font-display font-bold text-amber-400 mt-1">1 Day</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#182040]/40 border border-[#A78BFA]/20 text-center">
+          <p class="text-[10px] font-mono text-[#B8B5D3] uppercase">Avg Points/Quest</p>
+          <p id="statAvgPoints" class="text-2xl font-display font-bold text-emerald-400 mt-1">0</p>
+        </div>
+      </div>
+
+      <!-- Breakdown of How Points Were Earned -->
+      <div class="p-4 rounded-2xl bg-[#182040]/50 border border-[#A78BFA]/20 space-y-3">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-[#F4F1FF] flex items-center space-x-1.5">
+          <svg class="w-4 h-4 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Contribution Points Breakdown</span>
+        </h4>
+
+        <div class="space-y-2 text-xs font-mono">
+          <div class="flex items-center justify-between p-2 rounded-lg bg-[#10152B]/70 border border-[#A78BFA]/15">
+            <span class="text-[#B8B5D3]">Milestones Earned (Fork, Clone, Branch, Commit, PRs)</span>
+            <span id="breakdownMilestonePts" class="text-[#57D9F4] font-bold">0 pts</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-[#10152B]/70 border border-[#A78BFA]/15">
+            <span class="text-[#B8B5D3]">Active Mission Time (+1 pt / 10 active mins)</span>
+            <span id="breakdownTimePts" class="text-[#FCD34D] font-bold">0 pts</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-[#10152B]/70 border border-[#A78BFA]/15">
+            <span class="text-[#B8B5D3]">Difficulty Multiplier Bonus (Medium x1.5, Challenging x2)</span>
+            <span id="breakdownMultiplierPts" class="text-[#A78BFA] font-bold">0 pts</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-[#10152B]/70 border border-[#A78BFA]/15">
+            <span class="text-[#B8B5D3]">Daily Streak Bonus (+5 pts/consecutive active day)</span>
+            <span id="breakdownStreakPts" class="text-amber-400 font-bold">+5 pts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Leaderboard Participation Toggle (OFF BY DEFAULT) -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#182040]/80 to-[#10152B] border-2 border-[#57D9F4]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1 flex-1">
+          <div class="flex items-center space-x-2">
+            <svg class="w-4 h-4 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            <h4 class="text-sm font-display font-bold text-[#F4F1FF]">Join the galaxy leaderboard</h4>
+            <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">Optional</span>
+          </div>
+          <p class="text-[11px] text-[#B8B5D3] leading-relaxed">
+            Only users who turn it on appear publicly, with just their GitHub username, avatar, score, grade, and rank. You can switch it off anytime.
+          </p>
+        </div>
+
+        <label class="relative inline-flex items-center cursor-pointer shrink-0">
+          <input type="checkbox" id="joinLeaderboardToggle" class="sr-only peer" />
+          <div class="w-14 h-7 bg-[#10152B] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-[#6D45C5] peer-checked:to-[#57D9F4] border border-[#57D9F4]/40"></div>
+        </label>
+      </div>
+
+      <!-- Quests History Log -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-[#B8B5D3]">Your Quests History</h4>
+        <div id="progressQuestsHistoryList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+          <!-- Populated by JS -->
+          <p class="text-xs text-[#B8B5D3]/60 italic font-mono py-2">No completed quests yet. Click 'Start this quest' on any issue to begin!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. LEADERBOARD MODAL                                                      -->
+  <!-- ========================================================================= -->
+  <div id="leaderboardModal" class="fixed inset-0 z-50 hidden bg-[#080914]/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-[#10152B] border-2 border-[#57D9F4]/40 rounded-3xl max-w-4xl w-full shadow-galaxy-lg flex flex-col max-h-[92vh] overflow-hidden relative">
+      
+      <!-- Leaderboard Header -->
+      <div class="p-6 pb-4 border-b border-[#A78BFA]/20 flex items-center justify-between">
+        <div class="space-y-1">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6D45C5] to-[#57D9F4] flex items-center justify-center shadow-[0_0_15px_rgba(87,217,244,0.35)]">
+              <svg class="w-5 h-5 text-[#57D9F4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            </div>
+            <h3 class="text-xl font-display font-bold text-[#F4F1FF]">Galactic Leaderboard</h3>
+          </div>
+          <p class="text-xs text-[#B8B5D3]">Ranked flight telemetry of astronauts contributing across the galaxy</p>
+        </div>
+        <button id="closeLeaderboardModalBtn" type="button" class="text-[#B8B5D3] hover:text-[#F4F1FF] p-2 rounded-xl bg-[#182040]/60 hover:bg-[#182040] transition-colors cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Filter Controls & Timeframe Tabs -->
+      <div class="px-6 py-3 bg-[#182040]/50 border-b border-[#A78BFA]/20 flex flex-wrap items-center justify-between gap-3">
+        <!-- Timeframe Tabs -->
+        <div class="flex items-center space-x-1 p-1 bg-[#10152B] rounded-xl border border-[#A78BFA]/20 text-xs font-mono">
+          <button type="button" data-timeframe="today" class="leaderboard-tab-btn px-3 py-1.5 rounded-lg text-[#B8B5D3] hover:text-[#F4F1FF] transition-all cursor-pointer">
+            Today
+          </button>
+          <button type="button" data-timeframe="week" class="leaderboard-tab-btn px-3 py-1.5 rounded-lg text-[#B8B5D3] hover:text-[#F4F1FF] transition-all cursor-pointer">
+            This week
+          </button>
+          <button type="button" data-timeframe="all" class="leaderboard-tab-btn px-3 py-1.5 rounded-lg text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] font-bold shadow-sm transition-all cursor-pointer">
+            All time
+          </button>
+        </div>
+
+        <!-- Filter by Skill & Private League -->
+        <div class="flex items-center space-x-2">
+          <!-- Skill Filter Dropdown -->
+          <div class="flex items-center space-x-1.5">
+            <span class="text-xs font-mono text-[#B8B5D3] hidden sm:inline">Skill:</span>
+            <select id="leaderboardSkillFilter" class="bg-[#10152B] border border-[#A78BFA]/30 rounded-xl px-2.5 py-1.5 text-xs text-[#57D9F4] font-mono focus:outline-none cursor-pointer">
+              <option value="all">All Skills</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Python">Python</option>
+              <option value="React">React</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="HTML/CSS">HTML/CSS</option>
+            </select>
+          </div>
+
+          <!-- Private League Trigger Button -->
+          <button id="openPrivateLeagueBtn" type="button" class="px-3 py-1.5 text-xs font-mono font-bold text-[#A78BFA] bg-[#182040] hover:bg-[#202b54] border border-[#A78BFA]/40 rounded-xl transition-all flex items-center space-x-1 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#A78BFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span id="leagueButtonLabel">Private League</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Private League Management Sub-Drawer (Hidden by default) -->
+      <div id="privateLeagueDrawer" class="hidden px-6 py-3 bg-[#182040]/80 border-b border-[#57D9F4]/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+        <div class="flex items-center space-x-2 w-full sm:w-auto">
+          <input 
+            type="text" 
+            id="joinLeagueCodeInput" 
+            placeholder="Enter Join Code (e.g. GALAXY-123)" 
+            class="bg-[#10152B] border border-[#57D9F4]/40 rounded-xl px-3 py-1.5 text-xs text-[#F4F1FF] font-mono uppercase focus:outline-none"
+          />
+          <button id="joinLeagueSubmitBtn" type="button" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] text-[#080914] font-bold cursor-pointer shrink-0">
+            Join League
+          </button>
+        </div>
+        <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+          <input 
+            type="text" 
+            id="createLeagueNameInput" 
+            placeholder="New League Name" 
+            class="bg-[#10152B] border border-[#A78BFA]/40 rounded-xl px-3 py-1.5 text-xs text-[#F4F1FF] font-mono focus:outline-none"
+          />
+          <button id="createLeagueSubmitBtn" type="button" class="px-3 py-1.5 rounded-xl bg-[#6D45C5] hover:bg-[#7e53de] text-[#F4F1FF] font-bold cursor-pointer shrink-0">
+            Create League
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable): Top 3 Animated Podium & Ranked Table -->
+      <div class="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+        
+        <!-- Top 3 Animated Planetary Podium -->
+        <div id="leaderboardPodiumContainer" class="podium-container">
+          <!-- Populated by JS (2nd Silver on left, 1st Gold in center, 3rd Bronze on right) -->
+        </div>
+
+        <!-- Ranked Table Container -->
+        <div class="rounded-2xl border border-[#A78BFA]/20 overflow-hidden bg-[#10152B]/60 backdrop-blur-md">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-[#182040]/80 text-[#B8B5D3] uppercase border-b border-[#A78BFA]/20">
+                <tr>
+                  <th scope="col" class="py-3 px-3 text-center w-14">Rank</th>
+                  <th scope="col" class="py-3 px-4">Cadet / Astronaut</th>
+                  <th scope="col" class="py-3 px-3 text-right">Score</th>
+                  <th scope="col" class="py-3 px-3 text-center">Grade</th>
+                  <th scope="col" class="py-3 px-3 text-center hidden sm:table-cell">PRs (O/M)</th>
+                  <th scope="col" class="py-3 px-4 text-right hidden sm:table-cell">Hours</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardTableBody" class="divide-y divide-[#A78BFA]/10 text-[#F4F1FF]">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sticky "Your Rank" Bar at Bottom -->
+      <div id="stickyYourRankBar" class="sticky-leaderboard-bar px-6 py-3 flex items-center justify-between text-xs font-mono">
+        <!-- Populated dynamically: Shows current user rank or 1-click Join Leaderboard button -->
+        <div class="flex items-center space-x-3">
+          <img id="stickyUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" class="w-7 h-7 rounded-full border border-[#57D9F4]/40" alt="Avatar" />
+          <div>
+            <span id="stickyUserRankLabel" class="text-[#57D9F4] font-bold">Your Standing: Not on Leaderboard</span>
+            <p id="stickyUserHint" class="text-[10px] text-[#B8B5D3]">Enable public leaderboard in My Progress to join.</p>
+          </div>
+        </div>
+        <button id="stickyJoinLeaderboardBtn" type="button" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#57D9F4] to-[#A78BFA] text-[#080914] font-display font-bold hover:opacity-95 shadow-sm cursor-pointer">
+          Join Leaderboard
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 
   <!-- Application Logic -->
   <script src="app.js"></script>
+  <!-- ========================================================================= -->
+  <!-- FLOATING GIT BUDDY ASTRONAUT BOT (Fixed Bottom-Right Viewport)             -->
+  <!-- ========================================================================= -->
+  <aside id="astroBotContainer" class="astro-bot-widget fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-auto select-none" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" aria-label="Git Buddy Interactive Assistant">
+    
+    <!-- Modern Dark-Mode Glassmorphism Dialogue Box / Speech Bubble -->
+    <div id="astroBotDialogue" class="astro-bot-bubble mb-3 max-w-sm w-[calc(100vw-40px)] sm:w-[360px] p-4 bg-[#10152B]/95 border border-[#57D9F4]/40 rounded-2xl shadow-galaxy-lg backdrop-blur-xl transition-all duration-300 origin-bottom-right">
+      
+      <!-- Dialogue Header with Online & Gemma Status -->
+      <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#A78BFA]/20">
+        <div class="flex items-center space-x-2">
+          <svg class="w-4 h-4 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1V21a1 1 0 0 0 1 1h5.6a1 1 0 0 0 1-1v-1.9c3.1-1.4 5.2-4.5 5.2-8.1a9 9 0 0 0-9-9z"/><rect x="7" y="9" width="10" height="5.5" rx="2.5" fill="#57D9F4" fill-opacity="0.3"/></svg>
+          <div>
+            <h4 class="text-xs font-display font-bold text-[#F4F1FF] flex items-center space-x-1.5">
+              <span>Commander Astro</span>
+              <span id="astroStatusBadge" class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold bg-[#6D45C5]/40 text-[#57D9F4] border border-[#57D9F4]/40">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#57D9F4] animate-ping mr-1"></span>
+                <span id="astroStatusText">ONLINE</span>
+              </span>
+            </h4>
+          </div>
+        </div>
+        <!-- Voice Toggle and Minimize Buttons -->
+        <div class="flex items-center space-x-1">
+          <button id="astroMuteBtn" type="button" class="text-[#B8B5D3] hover:text-[#57D9F4] p-1 rounded-lg text-xs transition-colors cursor-pointer" title="Toggle Auto-Voice (Speech)">
+            <span id="astroMuteIcon" class="inline-flex items-center justify-center"><svg class="w-4 h-4 text-[#57D9F4] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor"/><path stroke-linecap="round" stroke-width="2" d="M15.54 8.46a5 5 0 010 7.07"/></svg></span>
+          </button>
+          <button id="closeAstroBotBtn" type="button" class="text-[#B8B5D3] hover:text-[#57D9F4] p-1 rounded-lg text-xs transition-colors cursor-pointer" title="Minimize Co-Pilot">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dialogue Message -->
+      <div class="relative min-h-[38px] flex items-center">
+        <p id="astroBotMessage" class="text-xs text-[#F4F1FF] leading-relaxed transition-opacity duration-200">
+          “Greetings Cadet! I'm your Git Buddy co-pilot. Need help landing your first Pull Request? I'm traveling alongside you through every milestone!”
+        </p>
+      </div>
+
+      <!-- Interactive Quick Action Buttons (including Speak & Ask Co-Pilot) -->
+      <div class="mt-3 pt-2.5 border-t border-[#A78BFA]/15 flex items-center flex-wrap gap-2">
+        <!-- Native Browser Speech Synthesis Speak Button -->
+        <button type="button" id="astroSpeakBtn" class="px-2.5 py-1 text-[11px] font-mono font-bold text-[#57D9F4] bg-[#182040] hover:bg-[#202b54] border border-[#57D9F4]/40 rounded-lg transition-all flex items-center space-x-1 cursor-pointer" title="Read message out loud using browser voice">
+          <span id="astroSpeakBtnIcon" class="inline-flex items-center justify-center"><svg class="w-4 h-4 text-[#57D9F4] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor"/><path stroke-linecap="round" stroke-width="2" d="M15.54 8.46a5 5 0 010 7.07"/></svg></span>
+          <span id="astroSpeakBtnText">Speak</span>
+        </button>
+        <!-- Dynamic Gemma Co-Pilot Generator Button -->
+        <button type="button" id="astroAskGemmaBtn" class="px-2.5 py-1 text-[11px] font-mono font-bold text-[#080914] bg-gradient-to-r from-[#A78BFA] to-[#57D9F4] hover:opacity-95 rounded-lg shadow-sm transition-all flex items-center space-x-1 cursor-pointer" title="Ask Gemma AI for dynamic personalized advice">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/></svg> <span>Ask Co-Pilot</span>
+        </button>
+        <!-- Next Tip cycle -->
+        <button type="button" id="astroTipBtn" class="ml-auto text-[11px] font-mono text-[#57D9F4] hover:underline cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-[#57D9F4] inline mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>Next Tip
+        </button>
+      </div>
+
+      <!-- Speech Bubble Tail pointing down toward the Mascot -->
+      <div class="astro-bubble-tail"></div>
+    </div>
+
+    <!-- Floating Astronaut Mascot Trigger / Avatar Button -->
+    <button id="astroAvatarBtn" type="button" class="astro-bot-trigger group relative cursor-pointer outline-none transition-transform active:scale-95" title="Click to chat with Commander Astro">
+      <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-[#6D45C5] via-[#10152B] to-[#57D9F4] p-[1.5px] shadow-[0_0_25px_rgba(87,217,244,0.45)] group-hover:shadow-[0_0_35px_rgba(87,217,244,0.7)] transition-all">
+        <div class="w-full h-full bg-[#10152B] rounded-2xl flex items-center justify-center relative overflow-hidden">
+          <!-- Radial ambient glow -->
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(87,217,244,0.35)_0%,transparent_70%)]"></div>
+          <!-- Floating Mascot Emoji -->
+          <svg class="w-8 h-8 sm:w-9 sm:h-9 text-[#57D9F4] select-none filter drop-shadow-[0_4px_10px_rgba(87,217,244,0.5)] transform -rotate-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2a9 9 0 0 0-9 9c0 3.6 2.1 6.7 5.2 8.1V21a1 1 0 0 0 1 1h5.6a1 1 0 0 0 1-1v-1.9c3.1-1.4 5.2-4.5 5.2-8.1a9 9 0 0 0-9-9z"/>
+            <rect x="6.5" y="8" width="11" height="6.5" rx="3.2" fill="url(#visorGlow)" stroke="#57D9F4" stroke-width="1.5"/>
+            <path d="M12 2V0.8M10.5 0.8h3" stroke="#A78BFA" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M8 20h8" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="visorGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#57D9F4" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#6D45C5" stop-opacity="0.6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <!-- Pulsing Status Ring -->
+          <span class="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-[#57D9F4] ring-2 ring-[#10152B]">
+            <span class="absolute inset-0 rounded-full bg-[#57D9F4] animate-ping opacity-75"></span>
+          </span>
+        </div>
+      </div>
+    </button>
+
+  </aside>
+
 </body>
 </html>
